@@ -58,6 +58,8 @@ struct ContentView: View {
             }
     
             SheetView(showSheetView: $isSharing, view: self)
+            
+            Spacer().frame(height: 75)
         }
         .padding()
         .background()
