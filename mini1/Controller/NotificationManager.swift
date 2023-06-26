@@ -8,9 +8,9 @@
 import UserNotifications
 
 class NotificationManager {
-    let notificationCenter = UNUserNotificationCenter.current()
-    
-    func requestPermission() {
+    static var notificationCenter = UNUserNotificationCenter.current()
+
+    static func requestPermission() {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
                 print("Notification permission granted.")

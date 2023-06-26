@@ -17,6 +17,7 @@
 		B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DF82A44CB2F0098B0E6 /* SheetView.swift */; };
 		B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */; };
 		B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFC2A4624950098B0E6 /* NotificationManager.swift */; };
+		B3FD62302A4A03A9003A3057 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD622F2A4A03A9003A3057 /* Category.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		B3282DF82A44CB2F0098B0E6 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		B3282DFC2A4624950098B0E6 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B3FD622F2A4A03A9003A3057 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				B3282DF02A43749B0098B0E6 /* Goal.swift */,
+				B3FD622F2A4A03A9003A3057 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Goal.swift in Sources */,
 				B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */,
+				B3FD62302A4A03A9003A3057 /* Category.swift in Sources */,
 				B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */,
 				B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */,
 				543A91BA2A4619F300346726 /* OnboardingView.swift in Sources */,
