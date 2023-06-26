@@ -34,6 +34,7 @@
 		543A91D72A46311700346726 /* SFMonoHeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoHeavyItalic.otf; sourceTree = "<group>"; };
 		543A91D92A46311700346726 /* SFMonoMediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoMediumItalic.otf; sourceTree = "<group>"; };
 		543A91DB2A46311700346726 /* SFMonoHeavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoHeavy.otf; sourceTree = "<group>"; };
+		543A91DC2A46314C00346726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B3282DDC2A4373BC0098B0E6 /* mini1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3282DDF2A4373BC0098B0E6 /* mini1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mini1App.swift; sourceTree = "<group>"; };
 		B3282DE12A4373BC0098B0E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		B3282DDE2A4373BC0098B0E6 /* mini1 */ = {
 			isa = PBXGroup;
 			children = (
+				543A91DC2A46314C00346726 /* Info.plist */,
 				B3282DDF2A4373BC0098B0E6 /* mini1App.swift */,
 				543A91CD2A46310E00346726 /* Fonts */,
 				B3282DEF2A4374730098B0E6 /* Controller */,
