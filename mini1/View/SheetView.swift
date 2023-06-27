@@ -16,7 +16,10 @@ struct SheetView: View {
         Button(action: {
             isShare = true
         }) {
-            Text("Share Me")
+            HStack {
+                Image(systemName: "square.and.arrow.up")
+                Text("Compartilhar")
+            }
         }
         .background(SharingViewController(isPresenting: $isShare) {
             let av = UIActivityViewController(activityItems: [view.snapshot()], applicationActivities: nil)

@@ -10,23 +10,23 @@ import SwiftUI; import UIKit
 struct ContentView: View {
     @ObservedObject var userData = UserData()
     
-    @State var goals: [Goal] = {
+    @State var challenges: [Challenge] = {
         // Recupera os dados salvos quando a View é carregada
         if let savedGoals = UserDefaults.standard.object(forKey: "Goals") as? Data {
             let decoder = JSONDecoder()
-            if let loadedGoals = try? decoder.decode([Goal].self, from: savedGoals) {
+            if let loadedGoals = try? decoder.decode([Challenge].self, from: savedGoals) {
                 return loadedGoals
             }
         }
         return []
     }()
     
-    @State private var showingAddGoalView = false
+    @State private var showingAddChallengeView = false
     @State private var isSharing = false
     @State private var screenshot: UIImage?
     
     var header: some View {
-        HStack {
+        HStack(spacing: 32) {
             ZStack {
                 Circle()
                     .fill(.red)
@@ -41,7 +41,7 @@ struct ContentView: View {
                             .frame(width: 56))
             }
 
-            VStack {
+            VStack(alignment: .leading) {
                 Text(userData.player1Name)
                     .font(.system(size: 34))
                     .fontDesign(.monospaced)
@@ -56,14 +56,14 @@ struct ContentView: View {
     
     var goalList: some View {
         Group {
-            if !goals.isEmpty {
+            if !challenges.isEmpty {
                 VStack(spacing: 15) {
-                    ForEach(goals.indices, id: \.self) { index in
+                    ForEach(challenges.indices, id: \.self) { index in
                         Button(action: {
-                            goals[index].isComplete.toggle()
-                            saveGoals(goals)
+                            challenges[index].isComplete.toggle()
+                            saveGoals(challenges)
                         }) {
-                            GoalCardView(goal: goals[index])
+                            ChallengeCardView(goal: challenges[index])
                         }
                     }
                 }
@@ -76,46 +76,69 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 40) {
                 
                 header
                 
-                Text("Desafios")
-                    .font(.system(.title3, weight: .bold))
+                //Spacer()
                 
-                goalList
-                
-                Button(action: {
-                    showingAddGoalView = true
-                }) {
-                    Text("Adicionar desafio")
+                VStack(alignment: .leading) {
+                    Text("Desafios")
+                        .font(.system(.title3, weight: .bold))
+                    
+                    goalList
+                    
+                    Button(action: {
+                        showingAddChallengeView = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Adicionar desafio")
+                        }
+                        .font(.caption)
+                        .foregroundColor(Color("AppBlack"))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 46)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(Color("AppGray04"))
+                        )
+                    }
+                    .padding(.top, 24)
+                    .sheet(isPresented: $showingAddChallengeView) {
+                        AddChallengeView(goals: $challenges)
+                    }
                 }
-                .padding()
-                .sheet(isPresented: $showingAddGoalView) {
-                    AddGoalView(goals: $goals)
+                    
+                HStack {
+                    Text("Visão semanal")
+                        .font(.system(.title3, weight: .bold))
+                    
+                    Spacer()
+                    
+                    SheetView(showSheetView: $isSharing, view: self)
                 }
-                
-                SheetView(showSheetView: $isSharing, view: self)
+                .padding(.bottom, 16)
                 
                 Button("Reset") {
-                    goals = []
-                    saveGoals(goals)
+                    challenges = []
+                    saveGoals(challenges)
                 }
                 
-                Spacer().frame(height: 75)
+                Spacer()
             }
             .onAppear {
                 NotificationManager.requestPermission()
             }
-            .padding(24)
+            .padding(.horizontal, 24)
             .background()
         }
     }
 }
 
-struct AddGoalView: View {
+struct AddChallengeView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var goals: [Goal]
+    @Binding var goals: [Challenge]
     
     @State private var goalDescription = ""
     @State private var frequency = 1
@@ -139,7 +162,7 @@ struct AddGoalView: View {
                 }
                 
                 Button("Adicionar desafio") {
-                    let newGoal = Goal(
+                    let newGoal = Challenge(
                         description: goalDescription,
                         isComplete: false,
 
@@ -162,7 +185,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-func saveGoals(_ goals: [Goal]) {
+func saveGoals(_ goals: [Challenge]) {
     let encoder = JSONEncoder()
     if let encodedGoals = try? encoder.encode(goals) {
         UserDefaults.standard.set(encodedGoals, forKey: "Goals")

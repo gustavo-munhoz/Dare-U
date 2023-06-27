@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Goal: Codable, Identifiable {
+struct Challenge: Codable, Identifiable {
     var id: UUID
     var description: String
     var isComplete: Bool
