@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		543A91BA2A4619F300346726 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543A91B92A4619F300346726 /* OnboardingView.swift */; };
+		54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */; };
 		B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DDF2A4373BC0098B0E6 /* mini1App.swift */; };
 		B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DE12A4373BC0098B0E6 /* ContentView.swift */; };
 		B3282DE42A4373BD0098B0E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3282DE32A4373BD0098B0E6 /* Assets.xcassets */; };
@@ -17,6 +18,9 @@
 		B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DF82A44CB2F0098B0E6 /* SheetView.swift */; };
 		B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */; };
 		B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFC2A4624950098B0E6 /* NotificationManager.swift */; };
+		B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38086122A4A0BA800EBEC65 /* UserData.swift */; };
+		B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */ = {isa = PBXBuildFile; fileRef = B38086292A4A104300EBEC65 /* sf-compact.otf */; };
+		B380863C2A4B5DD000EBEC65 /* GoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380863B2A4B5DD000EBEC65 /* GoalCardView.swift */; };
 		B3FD62302A4A03A9003A3057 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD622F2A4A03A9003A3057 /* Category.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +39,7 @@
 		543A91D92A46311700346726 /* SFMonoMediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoMediumItalic.otf; sourceTree = "<group>"; };
 		543A91DB2A46311700346726 /* SFMonoHeavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoHeavy.otf; sourceTree = "<group>"; };
 		543A91DC2A46314C00346726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView2.swift; sourceTree = "<group>"; };
 		B3282DDC2A4373BC0098B0E6 /* mini1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3282DDF2A4373BC0098B0E6 /* mini1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mini1App.swift; sourceTree = "<group>"; };
 		B3282DE12A4373BC0098B0E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +50,9 @@
 		B3282DF82A44CB2F0098B0E6 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		B3282DFC2A4624950098B0E6 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B38086122A4A0BA800EBEC65 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		B38086292A4A104300EBEC65 /* sf-compact.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-compact.otf"; sourceTree = "<group>"; };
+		B380863B2A4B5DD000EBEC65 /* GoalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCardView.swift; sourceTree = "<group>"; };
 		B3FD622F2A4A03A9003A3057 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,23 +67,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		543A91CD2A46310E00346726 /* Fonts */ = {
+		543A91CD2A46310E00346726 /* project_fonts */ = {
 			isa = PBXGroup;
 			children = (
-				543A91D62A46311700346726 /* SFMonoBold.otf */,
-				543A91D02A46311700346726 /* SFMonoBoldItalic.otf */,
-				543A91DB2A46311700346726 /* SFMonoHeavy.otf */,
-				543A91D72A46311700346726 /* SFMonoHeavyItalic.otf */,
-				543A91D12A46311700346726 /* SFMonoLight.otf */,
-				543A91D22A46311700346726 /* SFMonoLightItalic.otf */,
-				543A91CF2A46311600346726 /* SFMonoMedium.otf */,
-				543A91D92A46311700346726 /* SFMonoMediumItalic.otf */,
-				543A91CE2A46311600346726 /* SFMonoRegular.otf */,
-				543A91D32A46311700346726 /* SFMonoRegularItalic.otf */,
-				543A91D42A46311700346726 /* SFMonoSemibold.otf */,
-				543A91D52A46311700346726 /* SFMonoSemiboldItalic.otf */,
+				B38086292A4A104300EBEC65 /* sf-compact.otf */,
 			);
-			path = Fonts;
+			path = project_fonts;
 			sourceTree = "<group>";
 		};
 		B3282DD32A4373BC0098B0E6 = {
@@ -97,9 +94,8 @@
 		B3282DDE2A4373BC0098B0E6 /* mini1 */ = {
 			isa = PBXGroup;
 			children = (
-				543A91DC2A46314C00346726 /* Info.plist */,
 				B3282DDF2A4373BC0098B0E6 /* mini1App.swift */,
-				543A91CD2A46310E00346726 /* Fonts */,
+				543A91CD2A46310E00346726 /* project_fonts */,
 				B3282DEF2A4374730098B0E6 /* Controller */,
 				B3282DEE2A43746D0098B0E6 /* Model */,
 				B3282DED2A4374650098B0E6 /* View */,
@@ -122,8 +118,10 @@
 			children = (
 				B3282DE12A4373BC0098B0E6 /* ContentView.swift */,
 				543A91B92A4619F300346726 /* OnboardingView.swift */,
+				54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */,
 				B3282DF62A44C8110098B0E6 /* Snapshot.swift */,
 				B3282DF82A44CB2F0098B0E6 /* SheetView.swift */,
+				B380863B2A4B5DD000EBEC65 /* GoalCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -133,6 +131,7 @@
 			children = (
 				B3282DF02A43749B0098B0E6 /* Goal.swift */,
 				B3FD622F2A4A03A9003A3057 /* Category.swift */,
+				B38086122A4A0BA800EBEC65 /* UserData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */,
 				B3282DE72A4373BD0098B0E6 /* Preview Assets.xcassets in Resources */,
 				B3282DE42A4373BD0098B0E6 /* Assets.xcassets in Resources */,
 			);
@@ -217,13 +217,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */,
+				B380863C2A4B5DD000EBEC65 /* GoalCardView.swift in Sources */,
 				B3282DF72A44C8110098B0E6 /* Snapshot.swift in Sources */,
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Goal.swift in Sources */,
+				54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */,
 				B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */,
 				B3FD62302A4A03A9003A3057 /* Category.swift in Sources */,
 				B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */,
 				B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */,
+				B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */,
 				543A91BA2A4619F300346726 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

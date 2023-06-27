@@ -8,6 +8,8 @@
 import SwiftUI; import UIKit
 
 struct ContentView: View {
+    @ObservedObject var userData = UserData()
+    
     @State var goals: [Goal] = {
         // Recupera os dados salvos quando a View é carregada
         if let savedGoals = UserDefaults.standard.object(forKey: "Goals") as? Data {
@@ -19,27 +21,50 @@ struct ContentView: View {
         return []
     }()
     
-    //@State var goals: [Goal] = []
-    
     @State private var showingAddGoalView = false
     @State private var isSharing = false
     @State private var screenshot: UIImage?
     
+    var header: some View {
+        HStack {
+            ZStack {
+                Circle()
+                    .fill(.red)
+                    .frame(width: 46)
+                    .offset(x: 20, y: 20)
+                
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 59)
+                    .overlay(
+                        Circle().fill(Color.black)
+                            .frame(width: 56))
+            }
+
+            VStack {
+                Text(userData.player1Name)
+                    .font(.system(size: 34))
+                    .fontDesign(.monospaced)
+                    .fontWeight(.bold)
+                
+                Text("vs \(userData.player2Name)")
+            }
+            
+            Spacer()
+        }
+    }
+    
     var goalList: some View {
         Group {
             if !goals.isEmpty {
-                ForEach(goals.indices, id: \.self) { index in
-                    HStack {
+                VStack(spacing: 15) {
+                    ForEach(goals.indices, id: \.self) { index in
                         Button(action: {
                             goals[index].isComplete.toggle()
                             saveGoals(goals)
                         }) {
-                            Circle()
-                                .fill(goals[index].isComplete ? .blue : .clear)
-                                .frame(width: 20)
-                                .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+                            GoalCardView(goal: goals[index])
                         }
-                        Text(goals[index].description)
                     }
                 }
             }
@@ -50,34 +75,41 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            
-            goalList
-            
-            Button(action: {
-                showingAddGoalView = true
-            }) {
-                Text("Adicionar desafio")
+        NavigationStack {
+            VStack(alignment: .leading) {
+                
+                header
+                
+                Text("Desafios")
+                    .font(.system(.title3, weight: .bold))
+                
+                goalList
+                
+                Button(action: {
+                    showingAddGoalView = true
+                }) {
+                    Text("Adicionar desafio")
+                }
+                .padding()
+                .sheet(isPresented: $showingAddGoalView) {
+                    AddGoalView(goals: $goals)
+                }
+                
+                SheetView(showSheetView: $isSharing, view: self)
+                
+                Button("Reset") {
+                    goals = []
+                    saveGoals(goals)
+                }
+                
+                Spacer().frame(height: 75)
             }
-            .padding()
-            .sheet(isPresented: $showingAddGoalView) {
-                AddGoalView(goals: $goals)
+            .onAppear {
+                NotificationManager.requestPermission()
             }
-    
-            SheetView(showSheetView: $isSharing, view: self)
-            
-            Button("Reset") {
-                goals = []
-                saveGoals(goals)
-            }
-            
-            Spacer().frame(height: 75)
+            .padding(24)
+            .background()
         }
-        .onAppear {
-            NotificationManager.requestPermission()
-        }
-        .padding()
-        .background()
     }
 }
 
@@ -110,7 +142,7 @@ struct AddGoalView: View {
                     let newGoal = Goal(
                         description: goalDescription,
                         isComplete: false,
-                        frequency: frequency,
+
                         category: category.displayName
                     )
                     goals.append(newGoal)
