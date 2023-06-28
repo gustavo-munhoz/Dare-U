@@ -15,6 +15,7 @@ struct EditChallengeView: View {
             
             Circle()
                 .fill(.blue)
+            Text("Djeni!!!!!")
         }
     }
 }
