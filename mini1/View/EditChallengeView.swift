@@ -9,7 +9,10 @@ import SwiftUI
 
 struct EditChallengeView: View {
     var body: some View {
-        Text("Hello, Gabriel!")
+        VStack {
+            Text("Hello, Gabriel!")
+            Text("Hello, Yana!!!")
+        }
     }
 }
 
