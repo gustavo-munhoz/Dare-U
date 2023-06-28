@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct GoalCardView: View {
-    var goal: Goal
+struct ChallengeCardView: View {
+    var goal: Challenge
     
     
     var body: some View {
@@ -27,6 +27,8 @@ struct GoalCardView: View {
                     .font(.footnote)
                     .foregroundColor(Color(uiColor: .darkGray))
             }
+            
+            Spacer()
             
             NavigationLink(destination: ContentView()) {
                 Image(systemName: "chevron.right")
@@ -51,8 +53,8 @@ struct GoalCardView: View {
     }
 }
 
-struct GoalCardView_Previews: PreviewProvider {
+struct ChallengeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        GoalCardView(goal: Goal(description: "Hidratar o rosto com creme", category: Category.fitness.displayName))
+        ChallengeCardView(goal: Challenge(description: "Hidratar o rosto com creme", category: Category.fitness.displayName))
     }
 }
