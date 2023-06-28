@@ -12,6 +12,8 @@ struct EditChallengeView: View {
         VStack {
             Text("Hello, Gabriel!")
             Text("Hello, Yana!!!")
+            
+            Text("Djeni!!!!!")
         }
     }
 }
