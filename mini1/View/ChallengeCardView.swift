@@ -28,6 +28,8 @@ struct ChallengeCardView: View {
                     .foregroundColor(Color(uiColor: .darkGray))
             }
             
+            Spacer()
+            
             NavigationLink(destination: ContentView()) {
                 Image(systemName: "chevron.right")
             }

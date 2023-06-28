@@ -106,7 +106,7 @@ struct ContentView: View {
                     }
                     .padding(.top, 24)
                     .sheet(isPresented: $showingAddChallengeView) {
-                        AddChallengeView(goals: $challenges)
+                        AddChallengeView(challenges: $challenges)
                     }
                 }
                     
@@ -138,22 +138,15 @@ struct ContentView: View {
 
 struct AddChallengeView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var goals: [Challenge]
+    @Binding var challenges: [Challenge]
     
-    @State private var goalDescription = ""
-    @State private var frequency = 1
+    @State private var challengeDescription = ""
     @State private var category = Category.fitness
     
     var body: some View {
         NavigationView {
             Form {
-                TextField("Descrição do desafio", text: $goalDescription)
-                
-                Picker("Frequência", selection: $frequency) {
-                    ForEach(1...7, id: \.self) {
-                        Text("\($0)")
-                    }
-                }
+                TextField("Descrição do desafio", text: $challengeDescription)
                 
                 Picker("Category", selection: $category) {
                     ForEach(Category.allCases, id: \.self) { category in
@@ -163,13 +156,13 @@ struct AddChallengeView: View {
                 
                 Button("Adicionar desafio") {
                     let newGoal = Challenge(
-                        description: goalDescription,
+                        description: challengeDescription,
                         isComplete: false,
 
                         category: category.displayName
                     )
-                    goals.append(newGoal)
-                    saveGoals(goals)
+                    challenges.append(newGoal)
+                    saveGoals(challenges)
                     dismiss()
                 }
             }
