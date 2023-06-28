@@ -12,6 +12,9 @@ struct EditChallengeView: View {
         VStack {
             Text("Hello, Gabriel!")
             Text("Hello, Yana!!!")
+            
+            Circle()
+                .fill(.blue)
         }
     }
 }
