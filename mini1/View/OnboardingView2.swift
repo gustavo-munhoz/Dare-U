@@ -32,8 +32,6 @@ struct OnboardingView2: View {
                 .font(.system(size: 34))
                 .bold()
             
-            Spacer()
-            
             VStack(alignment: .leading) {
                 HStack {
                     Text("Título")
@@ -49,10 +47,41 @@ struct OnboardingView2: View {
                     }
                 }
             }
-            .cornerRadius(10)
+            .padding()
             .background(Color("Gray03"))
+            .cornerRadius(10)
             
+            Spacer()
+            
+            NavigationLink(destination: ContentView()) {
+                HStack {
+                    Text("pular")
+                        .foregroundColor(Color("Black"))
+                        .font(.callout)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(.white)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color("Pink"), lineWidth: 1))
+            }
+            
+            NavigationLink(destination: ContentView()) {
+                HStack {
+                    Text("próximo")
+                        .foregroundColor(.white)
+                        .font(.callout)
+                        .bold()
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(Color("Pink"))
+                .cornerRadius(10)
+            }
         }
+        .padding(.horizontal, 24)
+        .padding(.bottom, 24)
     }
 }
 

@@ -26,19 +26,6 @@
 
 /* Begin PBXFileReference section */
 		543A91B92A4619F300346726 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		543A91CE2A46311600346726 /* SFMonoRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoRegular.otf; sourceTree = "<group>"; };
-		543A91CF2A46311600346726 /* SFMonoMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoMedium.otf; sourceTree = "<group>"; };
-		543A91D02A46311700346726 /* SFMonoBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoBoldItalic.otf; sourceTree = "<group>"; };
-		543A91D12A46311700346726 /* SFMonoLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoLight.otf; sourceTree = "<group>"; };
-		543A91D22A46311700346726 /* SFMonoLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoLightItalic.otf; sourceTree = "<group>"; };
-		543A91D32A46311700346726 /* SFMonoRegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoRegularItalic.otf; sourceTree = "<group>"; };
-		543A91D42A46311700346726 /* SFMonoSemibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoSemibold.otf; sourceTree = "<group>"; };
-		543A91D52A46311700346726 /* SFMonoSemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoSemiboldItalic.otf; sourceTree = "<group>"; };
-		543A91D62A46311700346726 /* SFMonoBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoBold.otf; sourceTree = "<group>"; };
-		543A91D72A46311700346726 /* SFMonoHeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoHeavyItalic.otf; sourceTree = "<group>"; };
-		543A91D92A46311700346726 /* SFMonoMediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoMediumItalic.otf; sourceTree = "<group>"; };
-		543A91DB2A46311700346726 /* SFMonoHeavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFMonoHeavy.otf; sourceTree = "<group>"; };
-		543A91DC2A46314C00346726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView2.swift; sourceTree = "<group>"; };
 		B3282DDC2A4373BC0098B0E6 /* mini1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3282DDF2A4373BC0098B0E6 /* mini1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mini1App.swift; sourceTree = "<group>"; };
