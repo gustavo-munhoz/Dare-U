@@ -23,7 +23,7 @@ struct ChallengeCardView: View {
                         .fill(goal.isComplete ? Color("AppGray03") : Color(goal.category))
                         .opacity(goal.isComplete ? 0.5 : 1)
                         .frame(width: 55)
-                        .overlay(Image(systemName: "square")
+                        .overlay(Image(goal.imageName)
                             .resizable()
                             .frame(width: 34, height: 34))
 

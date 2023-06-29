@@ -14,6 +14,7 @@ struct Challenge: Codable, Identifiable {
     var category: String
     var timesCompletedThisWeek: Int
     var lastCompletionDate: Date?
+    var imageName: String
     
     init(id: UUID = UUID(), description: String, isComplete: Bool = false, category: String, timesCompletedThisWeek: Int, lastCompletionDate: Date? = nil) {
         self.id = id
@@ -22,5 +23,6 @@ struct Challenge: Codable, Identifiable {
         self.category = category
         self.timesCompletedThisWeek = timesCompletedThisWeek
         self.lastCompletionDate = lastCompletionDate
+        self.imageName = "\(self.category.lowercased())\(Int.random(in: 0...3))"
     }
 }

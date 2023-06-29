@@ -13,7 +13,7 @@ struct OnboardingView2: View {
     
     @State private var title: String = ""
     
-    @State var category = Category.fitness
+    @State var category = Category.selfcare
     
     var isDisabled: Bool {
         challenges.isEmpty
@@ -43,7 +43,7 @@ struct OnboardingView2: View {
             
             VStack {
                 ForEach(challenges) { challenge in
-                    ChallengeCardView(goal: challenge)
+                    ChallengeCardView(goal: challenge, isEditing: Binding.constant(false), deleteAction: {})
                 }
             }
             
@@ -70,7 +70,7 @@ struct OnboardingView2: View {
             .cornerRadius(10) 
             
             Button(action: {
-                let challenge = Challenge(description: title, category: category.displayName)
+                let challenge = Challenge(description: title, category: category.displayName, timesCompletedThisWeek: 0)
                 
                 challenges.append(challenge)
             } ) {
