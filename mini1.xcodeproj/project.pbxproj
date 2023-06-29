@@ -21,7 +21,6 @@
 		B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38086122A4A0BA800EBEC65 /* UserData.swift */; };
 		B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */ = {isa = PBXBuildFile; fileRef = B38086292A4A104300EBEC65 /* sf-compact.otf */; };
 		B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */; };
-		B3CD0B3C2A4CA434008A7F9F /* EditChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CD0B3B2A4CA434008A7F9F /* EditChallengeView.swift */; };
 		B3FD62302A4A03A9003A3057 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD622F2A4A03A9003A3057 /* Category.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +40,6 @@
 		B38086122A4A0BA800EBEC65 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B38086292A4A104300EBEC65 /* sf-compact.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-compact.otf"; sourceTree = "<group>"; };
 		B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCardView.swift; sourceTree = "<group>"; };
-		B3CD0B3B2A4CA434008A7F9F /* EditChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChallengeView.swift; sourceTree = "<group>"; };
 		B3FD622F2A4A03A9003A3057 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +109,6 @@
 				B3282DF62A44C8110098B0E6 /* Snapshot.swift */,
 				B3282DF82A44CB2F0098B0E6 /* SheetView.swift */,
 				B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */,
-				B3CD0B3B2A4CA434008A7F9F /* EditChallengeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -212,7 +209,6 @@
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Challenge.swift in Sources */,
 				54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */,
-				B3CD0B3C2A4CA434008A7F9F /* EditChallengeView.swift in Sources */,
 				B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */,
 				B3FD62302A4A03A9003A3057 /* Category.swift in Sources */,
 				B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */,
