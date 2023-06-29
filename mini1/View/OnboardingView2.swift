@@ -67,7 +67,7 @@ struct OnboardingView2: View {
             }
             .padding()
             .background(Color("AppGray03"))
-            .cornerRadius(10)
+            .cornerRadius(10) 
             
             Button(action: {
                 let challenge = Challenge(description: title, category: category.displayName)
