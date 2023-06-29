@@ -26,6 +26,12 @@ struct ContentView: View {
     @State private var screenshot: UIImage?
     @State private var isEditing = false
     
+    
+    var shouldAnimate: Bool {
+        return !isEditing && !challenges.filter { $0.isComplete }.isEmpty
+    }
+    
+    
     func resetChallengesIfDateChanged() {
         let currentDate = Date()
 
@@ -52,23 +58,32 @@ struct ContentView: View {
     }
 
     private func challengeButton(index: Int) -> some View {
-        Button(action: {
-            if !challenges[index].isComplete && (!Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) || challenges[index].lastCompletionDate == nil) {
-                challenges[index].timesCompletedThisWeek += 1
-                challenges[index].lastCompletionDate = Date()
-            } else if challenges[index].isComplete && Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) {
-                challenges[index].timesCompletedThisWeek -= 1
-                challenges[index].lastCompletionDate = nil
-            }
-            challenges[index].isComplete.toggle()
-            saveGoals(challenges)
-        }) {
-            ChallengeCardView(goal: challenges[index], isEditing: $isEditing) {
-                challenges.remove(at: index)
-                saveGoals(challenges)
+        Group {
+            if !isEditing {
+                Button(action: {
+                    if !challenges[index].isComplete && (!Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) || challenges[index].lastCompletionDate == nil) {
+                        challenges[index].timesCompletedThisWeek += 1
+                        challenges[index].lastCompletionDate = Date()
+                    } else if challenges[index].isComplete && Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) {
+                        challenges[index].timesCompletedThisWeek -= 1
+                        challenges[index].lastCompletionDate = nil
+                    }
+                    challenges[index].isComplete.toggle()
+                    saveGoals(challenges)
+                }) {
+                    ChallengeCardView(goal: challenges[index], isEditing: $isEditing) {
+                        challenges.remove(at: index)
+                        saveGoals(challenges)
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                ChallengeCardView(goal: challenges[index], isEditing: $isEditing) {
+                    challenges.remove(at: index)
+                    saveGoals(challenges)
+                }
             }
         }
-        .buttonStyle(PlainButtonStyle())
     }
     
     var header: some View {
@@ -115,24 +130,26 @@ struct ContentView: View {
                 VStack(spacing: 15) {
                     let incompleteChallenges = challenges.indices.filter { !challenges[$0].isComplete }
                     let completeChallenges = challenges.indices.filter { challenges[$0].isComplete }
-
+                    
                     ForEach(incompleteChallenges, id: \.self) { index in
                         challengeButton(index: index)
                     }
-                    
                     ForEach(completeChallenges, id: \.self) { index in
                         challengeButton(index: index)
                     }
                 }
             }
         }
-        .animation(.easeIn, value: challenges.filter { $0.isComplete }.count)
+        .animation(.linear, value: shouldAnimate )
     }
     
     var recap: some View {
         Group {
             if challenges.isEmpty {
                 Text("Nenhum desafio foi adicionado ainda.")
+                    .onAppear {
+                        isEditing = false
+                    }
             } else {
                 VStack(alignment: .leading) {
                     ForEach(challenges.indices, id: \.self) { index in

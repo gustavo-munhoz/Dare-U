@@ -54,6 +54,7 @@ struct ChallengeCardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .shadow(radius: 5)
                 )
+                
 
                 // Segundo HStack para o botão de exclusão
                 if isEditing {
