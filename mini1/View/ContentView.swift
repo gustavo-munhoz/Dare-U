@@ -140,7 +140,7 @@ struct ContentView: View {
                 }
             }
         }
-        .animation(.linear, value: shouldAnimate )
+        .animation(.linear, value: shouldAnimate)
     }
     
     var recap: some View {
