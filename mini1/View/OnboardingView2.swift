@@ -16,7 +16,7 @@ struct OnboardingView2: View {
     @State var category = Category.fitness
     
     var isDisabled: Bool {
-        category == .fitness
+        challenges.isEmpty
     }
     
     var body: some View {
