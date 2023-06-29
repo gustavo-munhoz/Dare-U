@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct OnboardingView2: View {
+    
+    @State var challenges: [Challenge] = []
+    
     @State private var title: String = ""
+    
+    @State var category = Category.fitness
+    
+    var isDisabled: Bool {
+        challenges.isEmpty
+    }
     
     var body: some View {
         VStack {
@@ -17,12 +26,12 @@ struct OnboardingView2: View {
                     .padding(.bottom, 10)
                     .padding(.top, 10)
                     .font(.system(size: 10))
-                    .foregroundColor(Color("Gray02"))
+                    .foregroundColor(Color("AppGray02"))
                 Image(systemName: "circle.fill")
                     .padding(.bottom, 10)
                     .padding(.top, 10)
                     .font(.system(size: 10))
-                    .foregroundColor(Color("Black"))
+                    .foregroundColor(Color("AppBlack"))
             }
             
             Spacer()
@@ -32,6 +41,12 @@ struct OnboardingView2: View {
                 .font(.system(size: 34))
                 .bold()
             
+            VStack {
+                ForEach(challenges) { challenge in
+                    ChallengeCardView(goal: challenge)
+                }
+            }
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text("Título")
@@ -39,24 +54,36 @@ struct OnboardingView2: View {
                 }
                 HStack {
                     Text("Categoria:")
-                    @State var category = Category.fitness
-                    Picker("Category", selection: $category) {
-                        ForEach(Category.allCases, id: \.self) { category in
-                            Text(category.displayName).tag(category)
+                    
+                    Menu(category.displayName) {
+                        ForEach(Category.allCases, id: \.self) { c in
+                            Button(c.displayName) {
+                                category = c
+                            }
                         }
                     }
+                    .menuStyle(.borderlessButton)
                 }
             }
             .padding()
-            .background(Color("Gray03"))
-            .cornerRadius(10)
+            .background(Color("AppGray03"))
+            .cornerRadius(10) 
+            
+            Button(action: {
+                let challenge = Challenge(description: title, category: category.displayName)
+                
+                challenges.append(challenge)
+            } ) {
+                Text("Adicionar desafio")
+                    .background(Color("AppGray04"))
+            }
             
             Spacer()
             
             NavigationLink(destination: ContentView()) {
                 HStack {
                     Text("pular")
-                        .foregroundColor(Color("Black"))
+                        .foregroundColor(Color("AppBlack"))
                         .font(.callout)
                 }
                 .frame(maxWidth: .infinity)
@@ -64,8 +91,9 @@ struct OnboardingView2: View {
                 .background(.white)
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(Color("Pink"), lineWidth: 1))
+                    .strokeBorder(Color("AppPink"), lineWidth: 1))
             }
+        
             
             NavigationLink(destination: ContentView()) {
                 HStack {
@@ -76,9 +104,10 @@ struct OnboardingView2: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(Color("Pink"))
+                .background(isDisabled ? Color("AppGray04") : Color("AppPink"))
                 .cornerRadius(10)
             }
+            .disabled(isDisabled)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 24)
@@ -87,6 +116,8 @@ struct OnboardingView2: View {
 
 struct OnboardingView2_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView2()
+        NavigationStack {
+            OnboardingView2()
+        }
     }
 }

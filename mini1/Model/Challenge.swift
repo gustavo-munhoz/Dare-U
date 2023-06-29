@@ -12,11 +12,15 @@ struct Challenge: Codable, Identifiable {
     var description: String
     var isComplete: Bool
     var category: String
+    var timesCompletedThisWeek: Int
+    var lastCompletionDate: Date?
     
-    init(id: UUID = UUID(), description: String, isComplete: Bool = false, category: String) {
+    init(id: UUID = UUID(), description: String, isComplete: Bool = false, category: String, timesCompletedThisWeek: Int, lastCompletionDate: Date? = nil) {
         self.id = id
         self.description = description
         self.isComplete = isComplete
         self.category = category
+        self.timesCompletedThisWeek = timesCompletedThisWeek
+        self.lastCompletionDate = lastCompletionDate
     }
 }
