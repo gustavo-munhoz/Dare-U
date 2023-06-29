@@ -39,7 +39,7 @@ struct OnboardingView2: View {
                 }
                 HStack {
                     Text("Categoria:")
-                    @State var category = Category.fitness
+                    @State var category = Category.art
                     Picker("Category", selection: $category) {
                         ForEach(Category.allCases, id: \.self) { category in
                             Text(category.displayName).tag(category)

@@ -9,52 +9,65 @@ import SwiftUI
 
 struct ChallengeCardView: View {
     var goal: Challenge
-    
+    @Binding var isEditing: Bool
+    var deleteAction: () -> Void
+
+    var darkFonts: [String] = ["Mente", "Habilidade", "Tecnologia"]
     
     var body: some View {
-        HStack {
-            Circle()
-                .fill(.yellow)
-                .frame(width: 55)
-                .overlay(Image(systemName: "square")
-                    .resizable()
-                    .frame(width: 34, height: 34))
-            
-            VStack(alignment: .leading) {
-                Text(goal.description)
-                    .font(.system(size: 15, weight: .semibold))
-                Text("diário")
-                    .font(.footnote)
-                    .foregroundColor(Color(uiColor: .darkGray))
-            }
-            
-            Spacer()
-            
-            NavigationLink(destination: ContentView()) {
-                Image(systemName: "chevron.right")
-            }
-            .padding(14)
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(goal.isComplete ? .red : .white)
-                .shadow(radius: 5)
-                .overlay(
-                    HStack {
-                        Spacer()
-                        Rectangle()
-                            .fill(.red)
-                            .frame(width: 12)
-                    }
-                )
-        )
-    }
-}
+        ZStack {
+            HStack(spacing: 0) {
+                // Primeiro HStack para as informações do desafio
+                HStack {
+                    Circle()
+                        .fill(goal.isComplete ? Color("AppGray03") : Color(goal.category))
+                        .opacity(goal.isComplete ? 0.5 : 1)
+                        .frame(width: 55)
+                        .overlay(Image(systemName: "square")
+                            .resizable()
+                            .frame(width: 34, height: 34))
 
-struct ChallengeCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChallengeCardView(goal: Challenge(description: "Hidratar o rosto com creme", category: Category.fitness.displayName))
+                    VStack(alignment: .leading) {
+                        Text(goal.description)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? .black : .white)
+                            .strikethrough(goal.isComplete, color: darkFonts.contains(goal.category) ? .black : .white)
+                        Text(goal.category)
+                            .font(.footnote)
+                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color(uiColor: .darkGray) : .white)
+                    }
+
+                    Spacer()
+                }
+                .frame(maxWidth: isEditing ? .infinity : .infinity)
+                .padding(16)
+                .background(
+                    ZStack(alignment: .trailing) {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.white)
+                            .shadow(radius: 5)
+                        Rectangle()
+                            .fill(Color(goal.category))
+                            .frame(maxWidth: goal.isComplete ? .infinity : 12)
+                            .animation(.easeInOut(duration: 0.25), value: goal.isComplete)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(radius: 5)
+                )
+
+                // Segundo HStack para o botão de exclusão
+                if isEditing {
+                    Button(action: deleteAction) {
+                        Image(systemName: "minus.circle.fill")
+                            .font(.system(size: 24))
+                            .foregroundColor(.red)
+                    }
+                    .padding(.trailing, 5)
+                    .frame(width: 50)
+                    .transition(.move(edge: .trailing))
+                }
+            }
+            .animation(.easeInOut(duration: 0.15), value: isEditing)
+        }
     }
 }
