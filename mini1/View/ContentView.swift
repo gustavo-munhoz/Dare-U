@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var isPresentingYourDay = false
     @State private var isPresentingPoke = false
     @State private var isPresentingUntilNow = false
+    @State private var isPresentingSundayStory = false
     
     @ObservedObject var userData: UserData
     
@@ -121,6 +122,7 @@ struct ContentView: View {
                 .overlay {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Definindo meus desafios em 3 stickers!")
+                            .foregroundColor(Color("AppBlackConstant"))
                             .font(.system(.subheadline, weight: .medium))
                         
                         HStack {
@@ -143,7 +145,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Circle()
-                    .fill(Color("AppGray03"))
+                    .fill(Color("AppGray03Constant"))
                     .frame(width: 40)
                     .overlay {
                         Image(systemName: "magnifyingglass")
@@ -166,7 +168,7 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 6) {
             Text("👀 Cutuque")
                 .font(.system(.caption, weight: .medium))
-                .foregroundColor(Color("AppGray03"))
+                .foregroundColor(Color("AppGray03Constant"))
             
             VStack(alignment: .leading) {
                 Text("Frases")
@@ -185,7 +187,7 @@ struct ContentView: View {
                 Text("aguenta mais")
                     .italic()
             }
-            .foregroundColor(Color("AppGray03"))
+            .foregroundColor(Color("AppGray03Constant"))
             .font(.subheadline)
             .fontWeight(.semibold)
             
@@ -195,7 +197,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Circle()
-                    .fill(Color("AppGray03"))
+                    .fill(Color("AppGray03Constant"))
                     .frame(width: 40)
                     .overlay {
                         Image(systemName: "magnifyingglass")
@@ -222,7 +224,7 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 6) {
             Text("🔥 Até agora...")
                 .font(.system(.caption, weight: .medium))
-                .foregroundColor(Color("AppGray03"))
+                .foregroundColor(Color("AppGray03Constant"))
             
             VStack(alignment: .leading) {
                 Text("Vendo meus")
@@ -236,7 +238,7 @@ struct ContentView: View {
 
                 Text("Dare U")
             }
-            .foregroundColor(Color("AppGray03"))
+            .foregroundColor(Color("AppGray03Constant"))
             .font(.subheadline)
             .fontWeight(.semibold)
             
@@ -246,7 +248,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Circle()
-                    .fill(Color("AppGray03"))
+                    .fill(Color("AppGray03Constant"))
                     .frame(width: 40)
                     .overlay {
                         Image(systemName: "magnifyingglass")
@@ -322,6 +324,13 @@ struct ContentView: View {
                 isPresented:$isPresentingYourDay,
                 isSharing: $isSharing
             )
+        }
+        .sheet(isPresented: $isPresentingSundayStory) {
+            StoriesView(
+                level: 1,
+                imageName: "imagem_domingo",
+                isPresented: $isPresentingSundayStory,
+                isSharing: $isSharing)
         }
     }
     
@@ -406,6 +415,9 @@ struct ContentView: View {
                     
                     if Calendar.current.component(.weekday, from: Date()) == 1 {
                         userData.challenges[index].timesCompletedThisWeek = 0
+                        isPresentingSundayStory = true
+                    } else {
+                        isPresentingSundayStory = false
                     }
                 }
             }
