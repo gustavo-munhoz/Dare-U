@@ -299,44 +299,6 @@ struct ContentView: View {
                 }
             }
         }
-    }
-    
-    var challengeList: some View {
-        Group {
-            if !userData.challenges.isEmpty {
-                VStack(spacing: 15) {
-                    let listas = userData.challenges.filter { $0.isComplete == false } + userData.challenges.filter { $0.isComplete }
-                    
-                    ForEach(listas) { challenge in
-                        challengeButton(index: userData.challenges.firstIndex(where: { $0 == challenge })!)
-                    }
-                }
-            }
-        }
-    }
-    
-    var recap: some View {
-        Group {
-            if userData.challenges.isEmpty {
-                Text("Nenhum desafio foi adicionado ainda.")
-                    .onAppear {
-                        isEditing = false
-                    }
-            } else {
-                VStack(alignment: .leading) {
-                    ForEach(userData.challenges.indices, id: \.self) { index in
-                        HStack {
-                            Text(userData.challenges[index].description)
-                                .font(.subheadline)
-                            Spacer()
-                            Text("\(userData.challenges[index].timesCompletedThisWeek) vezes concluído")
-                                .font(.subheadline)
-                        }
-                        .padding(.bottom, 5)
-                    }
-                }
-            }
-        }
         .sheet(isPresented: $isPresentingYourDay) {
             StoriesView(
                 level: calculateCompletionLevel(),
@@ -360,6 +322,20 @@ struct ContentView: View {
                 isPresented:$isPresentingYourDay,
                 isSharing: $isSharing
             )
+        }
+    }
+    
+    var challengeList: some View {
+        Group {
+            if !userData.challenges.isEmpty {
+                VStack(spacing: 15) {
+                    let listas = userData.challenges.filter { $0.isComplete == false } + userData.challenges.filter { $0.isComplete }
+                    
+                    ForEach(listas) { challenge in
+                        challengeButton(index: userData.challenges.firstIndex(where: { $0 == challenge })!)
+                    }
+                }
+            }
         }
     }
     
@@ -410,23 +386,6 @@ struct ContentView: View {
                             AddChallengeView(challenges: $userData.challenges)
                         }
                     }
-                    
-                    HStack {
-                        Text("Visão semanal")
-                            .font(.system(.title3, weight: .bold))
-                        
-                        Spacer()
-                        
-                        
-                    }
-                    .padding(.bottom, 16)
-                    
-                    recap
-                    
-                    Button("Reset") {
-                        userData.challenges = []
-                    }
-                    
                     Spacer()
                 }
                 .onAppear {
@@ -434,7 +393,6 @@ struct ContentView: View {
                 }
                 
                 .padding(.horizontal, 24)
-                //.preferredColorScheme(.light)
             }
             .navigationBarBackButtonHidden()
         }

@@ -29,7 +29,7 @@ struct SheetView: View {
             .cornerRadius(10)
         }
         .background(SharingViewController(isPresenting: $isSharing) {
-            var renderer = ImageRenderer(content: Image("\(view.imageName)_\(view.level)").imageScale(.large))
+            let renderer = ImageRenderer(content: Image("\(view.imageName)_\(view.level)").imageScale(.large))
             
             renderer.scale = UIScreen.main.scale
             
