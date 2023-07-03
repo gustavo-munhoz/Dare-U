@@ -30,11 +30,11 @@ struct ChallengeCardView: View {
                     VStack(alignment: .leading) {
                         Text(goal.description)
                             .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? .black : .white)
-                            .strikethrough(goal.isComplete, color: darkFonts.contains(goal.category) ? .black : .white)
+                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color("AppBlack") : Color("AppGray03"))
+                            .strikethrough(goal.isComplete, color: darkFonts.contains(goal.category) ? Color("AppBlack") : Color("AppGray03"))
                         Text(goal.category)
                             .font(.footnote)
-                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color(uiColor: .darkGray) : .white)
+                            .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color(uiColor: .darkGray) : Color("AppGray03"))
                     }
 
                     Spacer()
@@ -44,12 +44,11 @@ struct ChallengeCardView: View {
                 .background(
                     ZStack(alignment: .trailing) {
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
+                            .fill(Color("AppGray03"))
                             .shadow(radius: 5)
                         Rectangle()
                             .fill(Color(goal.category))
                             .frame(maxWidth: goal.isComplete ? .infinity : 12)
-                            .animation(.easeInOut(duration: 0.25), value: goal.isComplete)
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .shadow(radius: 5)
@@ -65,10 +64,12 @@ struct ChallengeCardView: View {
                     }
                     .padding(.trailing, 5)
                     .frame(width: 50)
-                    .transition(.move(edge: .trailing))
+                    .transition(
+                        .asymmetric(insertion: .move(edge: .trailing), removal: .opacity)
+                    
+                    )
                 }
             }
-            .animation(.easeInOut(duration: 0.15), value: isEditing)
         }
     }
 }

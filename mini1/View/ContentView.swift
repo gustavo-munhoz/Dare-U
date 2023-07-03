@@ -5,86 +5,70 @@
 //  Created by Gustavo Munhoz Correa on 21/06/23.
 //
 
-import SwiftUI; import UIKit
+import SwiftUI; import UIKit; import Combine
 
 struct ContentView: View {
-    @ObservedObject var userData = UserData()
+    var notificationManager = NotificationManager()
     
-    @State var challenges: [Challenge] = {
-        // Recupera os dados salvos quando a View é carregada
-        if let savedGoals = UserDefaults.standard.object(forKey: "Goals") as? Data {
-            let decoder = JSONDecoder()
-            if let loadedGoals = try? decoder.decode([Challenge].self, from: savedGoals) {
-                return loadedGoals
-            }
-        }
-        return []
-    }()
-    
+    @State var cancellable = Set<AnyCancellable>()
     @State private var showingAddChallengeView = false
-    @State private var isSharing = false
     @State private var screenshot: UIImage?
+    @State private var isSharing = false
     @State private var isEditing = false
+    @State private var isPresentingYourDay = false
+    @State private var isPresentingPoke = false
+    @State private var isPresentingUntilNow = false
     
+    @ObservedObject var userData: UserData
     
-    var shouldAnimate: Bool {
-        return !isEditing && !challenges.filter { $0.isComplete }.isEmpty
-    }
-    
-    
-    func resetChallengesIfDateChanged() {
-        let currentDate = Date()
-
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-
-        let dateString = formatter.string(from: currentDate)
-
-        let lastOpenedDateString = UserDefaults.standard.string(forKey: "lastOpened") ?? ""
-
-        if dateString != lastOpenedDateString {
-            // Data mudou
-            for i in 0..<challenges.count {
-                challenges[i].isComplete = false
-                if Calendar.current.isDateInToday(challenges[i].lastCompletionDate ?? Date()) {
-                    challenges[i].timesCompletedThisWeek = 0
-                    challenges[i].lastCompletionDate = nil
-                }
-            }
-            saveGoals(challenges)
-            UserDefaults.standard.set(dateString, forKey: "lastOpened")
-        }
-    }
-
     private func challengeButton(index: Int) -> some View {
-        Group {
-            if !isEditing {
-                Button(action: {
-                    if !challenges[index].isComplete && (!Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) || challenges[index].lastCompletionDate == nil) {
-                        challenges[index].timesCompletedThisWeek += 1
-                        challenges[index].lastCompletionDate = Date()
-                    } else if challenges[index].isComplete && Calendar.current.isDateInToday(challenges[index].lastCompletionDate ?? Date()) {
-                        challenges[index].timesCompletedThisWeek -= 1
-                        challenges[index].lastCompletionDate = nil
-                    }
-                    challenges[index].isComplete.toggle()
-                    saveGoals(challenges)
-                }) {
-                    ChallengeCardView(goal: challenges[index], isEditing: $isEditing) {
-                        challenges.remove(at: index)
-                        saveGoals(challenges)
-                    }
-                }
-                .buttonStyle(PlainButtonStyle())
-            } else {
-                ChallengeCardView(goal: challenges[index], isEditing: $isEditing) {
-                    challenges.remove(at: index)
-                    saveGoals(challenges)
-                }
+        ChallengeCardView(goal: userData.challenges[index], isEditing: $isEditing) {
+            userData.challenges.remove(at: index)
+        }
+        .onTapGesture {
+            if isEditing { return }
+            
+            if !userData.challenges[index].isComplete && (!Calendar.current.isDateInToday(userData.challenges[index].lastCompletionDate ?? Date()) || userData.challenges[index].lastCompletionDate == nil) {
+                userData.challenges[index].timesCompletedThisWeek += 1
+                userData.challenges[index].lastCompletionDate = Date()
+            } else if userData.challenges[index].isComplete && Calendar.current.isDateInToday(userData.challenges[index].lastCompletionDate ?? Date()) {
+                userData.challenges[index].timesCompletedThisWeek -= 1
+                userData.challenges[index].lastCompletionDate = nil
+            }
+            
+        
+            withAnimation {
+                userData.challenges[index].isComplete.toggle()
             }
         }
     }
+    
+    private func calculateCompletionLevel() -> Int {
+        let calendar = Calendar.current
+        
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))
+        let totalPossibleCompletions = userData.challenges.reduce(0) { result, challenge in
+            let creationDate = challenge.dateOfCreation
+            // may cause errors
+            let daysSinceCreation = calendar.dateComponents([.day], from: creationDate, to: startOfWeek!).day ?? 0
+            return result + min(daysSinceCreation, 7)
+        }
+        
+        let totalCompletions = userData.challenges.reduce(0) { $0 + $1.timesCompletedThisWeek }
+        
+        if totalPossibleCompletions == 0 { return 1 }
+        
+        let completionPercentage = Double(totalCompletions) / Double(totalPossibleCompletions)
+        
+        if completionPercentage < 0.33 {
+            return 1
+        } else if completionPercentage < 0.66 {
+            return 2
+        } else {
+            return 3
+        }
+    }
+
     
     var header: some View {
         HStack(spacing: 32) {
@@ -124,40 +108,228 @@ struct ContentView: View {
         }
     }
     
+    var yourDay: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("🌟Seu dia")
+                .font(.system(.caption, weight: .medium))
+                .foregroundColor(Color("AppGray01"))
+                
+            Rectangle()
+                .fill(Color("AppGreen01"))
+                .frame(width: 125, height: 122)
+                .clipShape(ThreeCornersShape(cornerRadius: 10, corners: [.bottomRight, .topRight, .bottomLeft]))
+                .overlay {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Definindo meus desafios em 3 stickers!")
+                            .font(.system(.subheadline, weight: .medium))
+                        
+                        HStack {
+                            Text("12:00")
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .padding(.horizontal, -6)
+                            
+                            Group {
+                                Image(systemName: "checkmark")
+                                Image(systemName: "checkmark")
+                                    .padding(.horizontal, -14)
+                            }.foregroundColor(.blue)
+                        }
+                        .font(.caption2)
+                    }
+                    .padding(11)
+                }
+            HStack {
+                Spacer()
+                
+                Circle()
+                    .fill(Color("AppGray03"))
+                    .frame(width: 40)
+                    .overlay {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.blue)
+                            .font(.system(.subheadline, weight: .semibold))
+                    }
+                    .padding(.top, 4)
+            }
+        }
+        .padding(16)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("AppYellow"), Color("AppOrangeLight")]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing).cornerRadius(10)
+        )
+    }
+    
+    var poke: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("👀 Cutuque")
+                .font(.system(.caption, weight: .medium))
+                .foregroundColor(Color("AppGray03"))
+            
+            VStack(alignment: .leading) {
+                Text("Frases")
+
+                Text("motivacionais")
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AppPink"), lineWidth: 1).padding(.horizontal, -2))
+
+                Text("que quem você")
+
+                HStack(alignment: .bottom, spacing: 0) {
+                    Text("desafia")
+                    Text(" não")
+                        .italic()
+                }
+
+                Text("aguenta mais")
+                    .italic()
+            }
+            .foregroundColor(Color("AppGray03"))
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Circle()
+                    .fill(Color("AppGray03"))
+                    .frame(width: 40)
+                    .overlay {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.blue)
+                            .font(.system(.subheadline, weight: .semibold))
+                    }
+                    .padding(.top, 4)
+            }
+        }
+        .padding(16)
+        .frame(width: 157, height: 226)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("AppBlue"), Color("AppPurpleLight")]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing).cornerRadius(10)
+        )
+        .overlay {
+            Image("cutuque")
+        }
+    }
+    
+    var untilnow: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("🔥 Até agora...")
+                .font(.system(.caption, weight: .medium))
+                .foregroundColor(Color("AppGray03"))
+            
+            VStack(alignment: .leading) {
+                Text("Vendo meus")
+
+                HStack(spacing: 0) {
+                    Text("desafios")
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AppYellow"), lineWidth: 1).padding(.horizontal, -2))
+
+                    Text(" no")
+                }
+
+                Text("Dare U")
+            }
+            .foregroundColor(Color("AppGray03"))
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Circle()
+                    .fill(Color("AppGray03"))
+                    .frame(width: 40)
+                    .overlay {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.blue)
+                            .font(.system(.subheadline, weight: .semibold))
+                    }
+                    .padding(.top, 4)
+            }
+        }
+        .padding(16)
+        .frame(width: 157, height: 226)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("AppPink"), Color("AppPinkDark")]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing).cornerRadius(10)
+        )
+        .overlay {
+            Image("ate-agora")
+        }
+    }
+    
+    var sharing: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Descubra")
+                    .font(.system(.title3, weight: .bold))
+                
+                Image(systemName: "arrow.right")
+                    .font(.system(.title3, weight: .bold))
+                    .padding(.horizontal, -4)
+            }
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    Button(action: {isPresentingYourDay = true}) {
+                        yourDay
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {isPresentingPoke = true}) {
+                        poke
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {isPresentingUntilNow = true}) {
+                        untilnow
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+        }
+    }
+    
     var challengeList: some View {
         Group {
-            if !challenges.isEmpty {
+            if !userData.challenges.isEmpty {
                 VStack(spacing: 15) {
-                    let incompleteChallenges = challenges.indices.filter { !challenges[$0].isComplete }
-                    let completeChallenges = challenges.indices.filter { challenges[$0].isComplete }
+                    let listas = userData.challenges.filter { $0.isComplete == false } + userData.challenges.filter { $0.isComplete }
                     
-                    ForEach(incompleteChallenges, id: \.self) { index in
-                        challengeButton(index: index)
-                    }
-                    ForEach(completeChallenges, id: \.self) { index in
-                        challengeButton(index: index)
+                    ForEach(listas) { challenge in
+                        challengeButton(index: userData.challenges.firstIndex(where: { $0 == challenge })!)
                     }
                 }
             }
         }
-        .animation(.linear, value: shouldAnimate )
     }
     
     var recap: some View {
         Group {
-            if challenges.isEmpty {
+            if userData.challenges.isEmpty {
                 Text("Nenhum desafio foi adicionado ainda.")
                     .onAppear {
                         isEditing = false
                     }
             } else {
                 VStack(alignment: .leading) {
-                    ForEach(challenges.indices, id: \.self) { index in
+                    ForEach(userData.challenges.indices, id: \.self) { index in
                         HStack {
-                            Text(challenges[index].description)
+                            Text(userData.challenges[index].description)
                                 .font(.subheadline)
                             Spacer()
-                            Text("\(challenges[index].timesCompletedThisWeek) vezes concluído")
+                            Text("\(userData.challenges[index].timesCompletedThisWeek) vezes concluído")
                                 .font(.subheadline)
                         }
                         .padding(.bottom, 5)
@@ -165,16 +337,40 @@ struct ContentView: View {
                 }
             }
         }
+        .sheet(isPresented: $isPresentingYourDay) {
+            StoriesView(
+                level: calculateCompletionLevel(),
+                imageName: "imagem_seu_dia",
+                isPresented:$isPresentingYourDay,
+                isSharing: $isSharing
+            )
+        }
+        .sheet(isPresented: $isPresentingPoke) {
+            StoriesView(
+                level: calculateCompletionLevel(),
+                imageName: "imagem_cutuque",
+                isPresented:$isPresentingYourDay,
+                isSharing: $isSharing
+            )
+        }
+        .sheet(isPresented: $isPresentingUntilNow) {
+            StoriesView(
+                level: calculateCompletionLevel(),
+                imageName: "imagem_ate_agora",
+                isPresented:$isPresentingYourDay,
+                isSharing: $isSharing
+            )
+        }
     }
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 40) {
                     
                     header
                     
-                    //Spacer()
+                    sharing
                     
                     VStack(alignment: .leading) {
                         HStack {
@@ -183,8 +379,8 @@ struct ContentView: View {
                             
                             Spacer()
                             
-                            if !challenges.isEmpty {
-                                Button(action: { isEditing.toggle() }) {
+                            if !userData.challenges.isEmpty {
+                                Button(action: { withAnimation { isEditing.toggle() } }) {
                                     Text(isEditing ? "Done" : "Edit")
                                         .fontWeight(isEditing ? .bold : .regular)
                                 }
@@ -211,7 +407,7 @@ struct ContentView: View {
                         }
                         .padding(.top, 24)
                         .sheet(isPresented: $showingAddChallengeView) {
-                            AddChallengeView(challenges: $challenges)
+                            AddChallengeView(challenges: $userData.challenges)
                         }
                     }
                     
@@ -221,42 +417,41 @@ struct ContentView: View {
                         
                         Spacer()
                         
-                        SheetView(showSheetView: $isSharing, view: self)
+                        
                     }
                     .padding(.bottom, 16)
                     
                     recap
                     
                     Button("Reset") {
-                        challenges = []
-                        saveGoals(challenges)
+                        userData.challenges = []
                     }
                     
                     Spacer()
                 }
                 .onAppear {
-                    let lastResetDate = UserDefaults.standard.object(forKey: "LastResetDate") as? Date
-                    // Verifique se é domingo e se já fez o reset hoje
-                    if Calendar.current.component(.weekday, from: Date()) == 1 && !Calendar.current.isDateInToday(lastResetDate ?? Date()) {
-                        // Se for domingo e ainda não tiver feito o reset, redefina os contadores
-                        for index in challenges.indices {
-                            challenges[index].timesCompletedThisWeek = 0
-                        }
-                        saveGoals(challenges)
-                        // Atualize a data do último reset
-                        UserDefaults.standard.set(Date(), forKey: "LastResetDate")
-                    }
-                    NotificationManager.requestPermission()
+                    setChangeDaySubscription()
                 }
                 
                 .padding(.horizontal, 24)
-                .preferredColorScheme(.light)
+                //.preferredColorScheme(.light)
             }
+            .navigationBarBackButtonHidden()
         }
     }
     
-    init() {
-        resetChallengesIfDateChanged()
+    func setChangeDaySubscription() {
+        notificationManager.$isDiffDay
+            .sink { _ in
+                for (index, _) in userData.challenges.enumerated() {
+                    userData.challenges[index].isComplete = false
+                    
+                    if Calendar.current.component(.weekday, from: Date()) == 1 {
+                        userData.challenges[index].timesCompletedThisWeek = 0
+                    }
+                }
+            }
+            .store(in: &cancellable)
     }
 }
 
@@ -296,7 +491,6 @@ struct AddChallengeView: View {
                             timesCompletedThisWeek: 0
                         )
                         challenges.append(newGoal)
-                        saveGoals(challenges)
                         dismiss()
                     }
                     .disabled(challengeDescription.isEmpty)
@@ -325,18 +519,38 @@ struct AddChallengeView: View {
     }
 }
 
+struct StoriesView: View {
+    var level: Int
+    var imageName: String
+    @Binding var isPresented: Bool
+    @Binding var isSharing: Bool
 
+    var body: some View {
+        VStack(spacing: 20) {
+            Button(action: { isPresented = false }) {
+                HStack {
+                    Spacer()
+                    
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .foregroundColor(Color("AppGray02"))
+                        .frame(width: 30, height: 30)
+                }
+            }
+            
+            Image("\(imageName)_\(level)")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+
+            SheetView(showSheetView: $isSharing, view: self)
+        }
+        .padding(.horizontal, 24)
+    }
+}
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-    }
-}
-
-func saveGoals(_ challenges: [Challenge]) {
-    let encoder = JSONEncoder()
-    if let encodedGoals = try? encoder.encode(challenges) {
-        UserDefaults.standard.set(encodedGoals, forKey: "Goals")
+        ContentView(userData: UserData())
     }
 }

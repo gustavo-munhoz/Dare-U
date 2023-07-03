@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct Challenge: Codable, Identifiable {
+struct Challenge: Codable, Identifiable, Equatable {
     var id: UUID
     var description: String
     var isComplete: Bool
     var category: String
     var timesCompletedThisWeek: Int
+    var dateOfCreation = Date()
     var lastCompletionDate: Date?
     var imageName: String
     
@@ -23,6 +24,6 @@ struct Challenge: Codable, Identifiable {
         self.category = category
         self.timesCompletedThisWeek = timesCompletedThisWeek
         self.lastCompletionDate = lastCompletionDate
-        self.imageName = "\(self.category.lowercased())\(Int.random(in: 0...3))"
+        self.imageName = "\(self.category.lowercased())\(Int.random(in: 1...3))"
     }
 }

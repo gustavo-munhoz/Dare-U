@@ -9,14 +9,15 @@ import SwiftUI
 
 struct OnboardingView2: View {
     
-    @State var challenges: [Challenge] = []
+    @ObservedObject var userData: UserData
+    var onFinish: () -> Void
     
     @State private var title: String = ""
     
-    @State var category = Category.selfcare
+    @State private var category = Category.selfcare
     
     var isDisabled: Bool {
-        challenges.isEmpty
+        userData.challenges.isEmpty
     }
     
     var body: some View {
@@ -42,7 +43,7 @@ struct OnboardingView2: View {
                 .bold()
             
             VStack {
-                ForEach(challenges) { challenge in
+                ForEach(userData.challenges) { challenge in
                     ChallengeCardView(goal: challenge, isEditing: Binding.constant(false), deleteAction: {})
                 }
             }
@@ -72,7 +73,7 @@ struct OnboardingView2: View {
             Button(action: {
                 let challenge = Challenge(description: title, category: category.displayName, timesCompletedThisWeek: 0)
                 
-                challenges.append(challenge)
+                userData.challenges.append(challenge)
             } ) {
                 Text("Adicionar desafio")
                     .background(Color("AppGray04"))
@@ -80,7 +81,7 @@ struct OnboardingView2: View {
             
             Spacer()
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: ContentView(userData: userData)) {
                 HStack {
                     Text("pular")
                         .foregroundColor(Color("AppBlack"))
@@ -93,9 +94,8 @@ struct OnboardingView2: View {
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .strokeBorder(Color("AppPink"), lineWidth: 1))
             }
-        
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: ContentView(userData: userData)) {
                 HStack {
                     Text("próximo")
                         .foregroundColor(.white)
@@ -111,13 +111,18 @@ struct OnboardingView2: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 24)
+        .onAppear {
+            onFinish()
+        }
     }
 }
 
 struct OnboardingView2_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            OnboardingView2()
+            OnboardingView2(userData: UserData()) {
+                print("finished")
+            }
         }
     }
 }

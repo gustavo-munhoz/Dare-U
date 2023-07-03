@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State private var name: String = ""
-    @State private var desafiante: String = ""
+    @ObservedObject var userData = UserData()
     
     var body: some View {
         VStack {
@@ -30,10 +29,6 @@ struct OnboardingView: View {
             Image("Logo")
                 .padding(.top, 10)
             
-//            Text("Bem-vindo")
-//                .fontWidth(.condensed)
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .padding(.leading, 24)
             
             Text("Bem-vindo")
                 .fontDesign(.monospaced)
@@ -51,8 +46,8 @@ struct OnboardingView: View {
                 .font(.system(.footnote, weight: .regular))
                 .foregroundColor(Color("AppGray02"))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
-            TextField("Nome", text: $name)
+            
+            TextField("Nome", text: $userData.player1Name)
                 .font(.system(size: 17))
                 .frame(height: 44)
                 .padding(.leading, 16)
@@ -63,15 +58,18 @@ struct OnboardingView: View {
                 .font(.system(.footnote, weight: .regular))
                 .foregroundColor(Color("AppGray02"))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
-            TextField("Desafiante", text: $desafiante)
+            
+            TextField("Desafiante", text: $userData.player2Name)
                 .font(.system(size: 17))
                 .frame(height: 44)
                 .padding(.leading, 14)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
                 .padding(.bottom, 46)
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination:
+                OnboardingView2(userData: userData) {
+                    userData.didShowOnboarding = true
+            }) {
                 HStack {
                     Text("pular")
                         .foregroundColor(Color("AppBlack"))
@@ -86,7 +84,9 @@ struct OnboardingView: View {
                 .padding(.bottom, 2)
             }
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: OnboardingView2(userData: userData) {
+                userData.didShowOnboarding = true
+            }) {
                 HStack {
                     Text("próximo")
                         .foregroundColor(.white)
@@ -108,6 +108,6 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView()
+        OnboardingView(userData: UserData())
     }
 }

@@ -5,18 +5,23 @@
 //  Created by Gustavo Munhoz Correa on 23/06/23.
 //
 
-import UserNotifications
+import SwiftUI
 
-class NotificationManager {
-    static var notificationCenter = UNUserNotificationCenter.current()
 
-    static func requestPermission() {
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                print("Notification permission granted.")
-            } else {
-                print("Notification permission denied because: \(error?.localizedDescription ?? "an error occurred")")
-            }
-        }
+class NotificationManager: ObservableObject {
+    @Published var isDiffDay: Bool = false
+    
+    @objc
+    func dayChanged() {
+        isDiffDay.toggle()
+        //UserDefaults.standard.set("FUNCIONOU?", forKey: "teste-mudança-de-data")
+    }
+    
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(dayChanged),
+            name: UIApplication.significantTimeChangeNotification,
+            object: nil)
     }
 }

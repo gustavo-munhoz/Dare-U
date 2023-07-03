@@ -18,6 +18,8 @@
 		B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DF82A44CB2F0098B0E6 /* SheetView.swift */; };
 		B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */; };
 		B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFC2A4624950098B0E6 /* NotificationManager.swift */; };
+		B377F0CD2A50EA25007DD97D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0CC2A50EA25007DD97D /* StartView.swift */; };
+		B377F0D12A51291A007DD97D /* ThreeCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0D02A51291A007DD97D /* ThreeCornerShape.swift */; };
 		B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38086122A4A0BA800EBEC65 /* UserData.swift */; };
 		B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */ = {isa = PBXBuildFile; fileRef = B38086292A4A104300EBEC65 /* sf-compact.otf */; };
 		B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */; };
@@ -37,6 +39,8 @@
 		B3282DF82A44CB2F0098B0E6 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		B3282DFC2A4624950098B0E6 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		B377F0CC2A50EA25007DD97D /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		B377F0D02A51291A007DD97D /* ThreeCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCornerShape.swift; sourceTree = "<group>"; };
 		B38086122A4A0BA800EBEC65 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B38086292A4A104300EBEC65 /* sf-compact.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-compact.otf"; sourceTree = "<group>"; };
 		B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCardView.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				B3282DF62A44C8110098B0E6 /* Snapshot.swift */,
 				B3282DF82A44CB2F0098B0E6 /* SheetView.swift */,
 				B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */,
+				B377F0CC2A50EA25007DD97D /* StartView.swift */,
+				B377F0D02A51291A007DD97D /* ThreeCornerShape.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,7 +214,9 @@
 				B3282DF72A44C8110098B0E6 /* Snapshot.swift in Sources */,
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Challenge.swift in Sources */,
+				B377F0CD2A50EA25007DD97D /* StartView.swift in Sources */,
 				54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */,
+				B377F0D12A51291A007DD97D /* ThreeCornerShape.swift in Sources */,
 				B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */,
 				B3FD62302A4A03A9003A3057 /* Category.swift in Sources */,
 				B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */,
@@ -340,6 +348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"mini1/Preview Content\"";
@@ -359,6 +368,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.zhorse.mini1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -370,6 +380,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"mini1/Preview Content\"";
@@ -389,6 +400,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.zhorse.mini1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

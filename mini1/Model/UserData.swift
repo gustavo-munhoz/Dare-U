@@ -20,8 +20,34 @@ class UserData: ObservableObject {
         }
     }
 
+    @Published var challenges: [Challenge] {
+        didSet {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(challenges) {
+                UserDefaults.standard.set(encoded, forKey: "challenges")
+            }
+        }
+    }
+
+    @Published var didShowOnboarding: Bool {
+        didSet {
+            UserDefaults.standard.set(didShowOnboarding, forKey: "DidShowOnboarding")
+        }
+    }
+    
     init() {
-        self.player1Name = UserDefaults.standard.object(forKey: "player1Name") as? String ?? "Luisa"
-        self.player2Name = UserDefaults.standard.object(forKey: "player2Name") as? String ?? "Ariel"
+        self.player1Name = UserDefaults.standard.object(forKey: "player1Name") as? String ?? "a"
+        self.player2Name = UserDefaults.standard.object(forKey: "player2Name") as? String ?? "b"
+        self.didShowOnboarding = UserDefaults.standard.bool(forKey: "DidShowOnboarding")
+        
+        if let data = UserDefaults.standard.data(forKey: "challenges") {
+            let decoder = JSONDecoder()
+            if let decoded = try? decoder.decode([Challenge].self, from: data) {
+                self.challenges = decoded
+                return
+            }
+        }
+
+        self.challenges = []
     }
 }
