@@ -134,8 +134,6 @@ struct AddChallengeView2: View {
                 .clipped()
                 .padding(.horizontal, -24)
                 
-                Spacer(minLength: 8)
-                
                 Button(action: addChallenge) {
                     HStack {
                         Text("Adicionar desafio")

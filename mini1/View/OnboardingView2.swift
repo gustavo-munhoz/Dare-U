@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-
 import UIKit
 
 struct OnboardingView2: View {
@@ -80,23 +78,29 @@ struct OnboardingView2: View {
             Spacer(minLength: 10)
 
             ScrollView {
-                ForEach(suggestedChallenges, id: \.description) { challenge in
-                    Button(action: {
-                        withAnimation {
-                            if selected == challenge {
-                                selected = nil
-                            } else {
-                                selected = challenge
+                VStack {
+                    ForEach(suggestedChallenges, id: \.description) { challenge in
+                        Button(action: {
+                            withAnimation {
+                                if selected == challenge {
+                                    selected = nil
+                                } else {
+                                    selected = challenge
+                                }
                             }
+                        }) {
+                            VStack(alignment: .leading) {
+                                SelectedChallengeCardView(goal: challenge, isSelected: selected != challenge, deleteAction: {})
+                            }
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 24)
                         }
-                    }) {
-                        VStack(alignment: .leading) {
-                            SelectedChallengeCardView(goal: challenge, isSelected: selected != challenge, deleteAction: {})
-                        }
-                        .padding(.vertical, 4)
                     }
                 }
+                .padding(.vertical, 8)
             }
+            .clipped()
+            .padding(.horizontal, -24)
 
             Spacer(minLength: 16)
             
@@ -132,7 +136,6 @@ struct OnboardingView2: View {
             .disabled(isDisabled)
         }
         .padding(.horizontal, 24)
-        .padding(.bottom, 24)
         
     }
 }
