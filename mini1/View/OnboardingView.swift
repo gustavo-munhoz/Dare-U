@@ -40,7 +40,7 @@ struct OnboardingView: View {
             Text("Compartilhe desafios com os seus amigos!")
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 14)
+                .padding(.bottom, 16)
             
             Text("Qual o seu nome?")
                 .font(.system(.footnote, weight: .regular))
@@ -62,9 +62,9 @@ struct OnboardingView: View {
             TextField("Desafiante", text: $userData.player2Name)
                 .font(.system(size: 17))
                 .frame(height: 44)
-                .padding(.leading, 14)
+                .padding(.leading, 16)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
-                .padding(.bottom, 46)
+                .padding(.bottom, 24)
             
             NavigationLink(destination:
                 OnboardingView2(userData: userData) {
@@ -103,6 +103,7 @@ struct OnboardingView: View {
         .padding(.horizontal, 24)
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color("AppGray03"))
+        
     }
 }
 
