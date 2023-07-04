@@ -26,6 +26,7 @@ struct ChallengeCardView: View {
                         .overlay(Image(goal.imageName)
                             .resizable()
                             .frame(width: 34, height: 34))
+                        .padding(.trailing, 8)
 
                     VStack(alignment: .leading) {
                         Text(goal.description)

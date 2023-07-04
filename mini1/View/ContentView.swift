@@ -25,6 +25,9 @@ struct ContentView: View {
     private func challengeButton(index: Int) -> some View {
         ChallengeCardView(goal: userData.challenges[index], isEditing: $isEditing) {
             userData.challenges.remove(at: index)
+            if userData.challenges.isEmpty {
+                isEditing = false
+            }
         }
         .onTapGesture {
             if isEditing { return }
@@ -44,32 +47,6 @@ struct ContentView: View {
         }
     }
     
-    private func calculateCompletionLevel() -> Int {
-        let calendar = Calendar.current
-        
-        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))
-        let totalPossibleCompletions = userData.challenges.reduce(0) { result, challenge in
-            let creationDate = challenge.dateOfCreation
-            // may cause errors
-            let daysSinceCreation = calendar.dateComponents([.day], from: creationDate, to: startOfWeek!).day ?? 0
-            return result + min(daysSinceCreation, 7)
-        }
-        
-        let totalCompletions = userData.challenges.reduce(0) { $0 + $1.timesCompletedThisWeek }
-        
-        if totalPossibleCompletions == 0 { return 1 }
-        
-        let completionPercentage = Double(totalCompletions) / Double(totalPossibleCompletions)
-        
-        if completionPercentage < 0.33 {
-            return 1
-        } else if completionPercentage < 0.66 {
-            return 2
-        } else {
-            return 3
-        }
-    }
-
     
     var header: some View {
         HStack(spacing: 32) {
@@ -303,34 +280,35 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isPresentingYourDay) {
             StoriesView(
-                level: calculateCompletionLevel(),
                 imageName: "imagem_seu_dia",
                 isPresented:$isPresentingYourDay,
-                isSharing: $isSharing
+                isSharing: $isSharing,
+                userData: userData
             )
         }
         .sheet(isPresented: $isPresentingPoke) {
             StoriesView(
-                level: calculateCompletionLevel(),
                 imageName: "imagem_cutuque",
                 isPresented:$isPresentingYourDay,
-                isSharing: $isSharing
+                isSharing: $isSharing,
+                userData: userData
             )
         }
         .sheet(isPresented: $isPresentingUntilNow) {
             StoriesView(
-                level: calculateCompletionLevel(),
                 imageName: "imagem_ate_agora",
                 isPresented:$isPresentingYourDay,
-                isSharing: $isSharing
+                isSharing: $isSharing,
+                userData: userData
             )
         }
         .sheet(isPresented: $isPresentingSundayStory) {
             StoriesView(
-                level: 1,
                 imageName: "imagem_domingo",
                 isPresented: $isPresentingSundayStory,
-                isSharing: $isSharing)
+                isSharing: $isSharing,
+                userData: userData
+            )
         }
     }
     
@@ -365,7 +343,8 @@ struct ContentView: View {
                             Spacer()
                             
                             if !userData.challenges.isEmpty {
-                                Button(action: { withAnimation { isEditing.toggle() } }) {
+                                Button(action: {
+                                    withAnimation { isEditing.toggle() } }) {
                                     Text(isEditing ? "Done" : "Edit")
                                         .fontWeight(isEditing ? .bold : .regular)
                                 }
@@ -490,10 +469,11 @@ struct AddChallengeView: View {
 }
 
 struct StoriesView: View {
-    var level: Int
     var imageName: String
     @Binding var isPresented: Bool
     @Binding var isSharing: Bool
+    @State var level: Int = 1
+    @ObservedObject var userData: UserData
 
     var body: some View {
         VStack(spacing: 20) {
@@ -514,9 +494,53 @@ struct StoriesView: View {
 
             SheetView(showSheetView: $isSharing, view: self)
         }
+        .overlay {
+            
+        }
         .padding(.horizontal, 24)
+        .onAppear {
+            level = imageName != "imagem_domingo" ? calculateCompletionLevel() : 1
+        }
+    }
+    
+    private func calculateCompletionLevel() -> Int {
+        let calendar = Calendar.current
+        
+        // Pegar o início da semana (domingo)
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))
+        
+        // Para cada desafio, calcular quantas vezes ele poderia ter sido completado
+        let totalPossibleCompletions = userData.challenges.reduce(0) { result, challenge in
+            let creationDate = challenge.dateOfCreation
+            
+            // Se o desafio foi criado antes do início desta semana, ele poderia ter sido completado todos os dias desde o início da semana
+            if creationDate <= startOfWeek! {
+                let daysSinceStartOfWeek = calendar.dateComponents([.day], from: startOfWeek!, to: Date()).day ?? 0
+                return result + (daysSinceStartOfWeek + 1)
+            }
+            // Se o desafio foi criado durante a semana, ele só poderia ter sido concluído nos dias desde a sua criação
+            else {
+                let daysSinceCreation = calendar.dateComponents([.day], from: creationDate, to: Date()).day ?? 0
+                return result + (daysSinceCreation + 1) // adicionando 1 aqui para considerar o dia da criação
+            }
+        }
+        
+        // Para cada desafio, calcular quantas vezes ele foi completado
+        let totalCompletions = userData.challenges.reduce(0) { $0 + $1.timesCompletedThisWeek }
+        
+        // Calcular a porcentagem
+        let completionPercentage = totalPossibleCompletions == 0 ? 0 : Double(totalCompletions) / Double(totalPossibleCompletions)
+        
+        if completionPercentage < 0.33 {
+            return 1
+        } else if completionPercentage < 0.66 {
+            return 2
+        } else {
+            return 3
+        }
     }
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {
