@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		543A91BA2A4619F300346726 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543A91B92A4619F300346726 /* OnboardingView.swift */; };
+		5472E0F12A548C9100FA01FC /* AddChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5472E0F02A548C9100FA01FC /* AddChallengeView.swift */; };
 		54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */; };
+		54E6590B2A4F573200FB43D3 /* SelectedChallengeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E6590A2A4F573200FB43D3 /* SelectedChallengeCardView.swift */; };
 		B3282DE02A4373BC0098B0E6 /* mini1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DDF2A4373BC0098B0E6 /* mini1App.swift */; };
 		B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DE12A4373BC0098B0E6 /* ContentView.swift */; };
 		B3282DE42A4373BD0098B0E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3282DE32A4373BD0098B0E6 /* Assets.xcassets */; };
@@ -26,7 +28,9 @@
 
 /* Begin PBXFileReference section */
 		543A91B92A4619F300346726 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5472E0F02A548C9100FA01FC /* AddChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeView.swift; sourceTree = "<group>"; };
 		54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView2.swift; sourceTree = "<group>"; };
+		54E6590A2A4F573200FB43D3 /* SelectedChallengeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChallengeCardView.swift; sourceTree = "<group>"; };
 		B3282DDC2A4373BC0098B0E6 /* mini1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3282DDF2A4373BC0098B0E6 /* mini1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mini1App.swift; sourceTree = "<group>"; };
 		B3282DE12A4373BC0098B0E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,11 +108,13 @@
 			isa = PBXGroup;
 			children = (
 				B3282DE12A4373BC0098B0E6 /* ContentView.swift */,
+				5472E0F02A548C9100FA01FC /* AddChallengeView.swift */,
 				543A91B92A4619F300346726 /* OnboardingView.swift */,
 				54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */,
 				B3282DF62A44C8110098B0E6 /* Snapshot.swift */,
 				B3282DF82A44CB2F0098B0E6 /* SheetView.swift */,
 				B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */,
+				54E6590A2A4F573200FB43D3 /* SelectedChallengeCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -203,10 +209,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5472E0F12A548C9100FA01FC /* AddChallengeView.swift in Sources */,
 				B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */,
 				B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */,
 				B3282DF72A44C8110098B0E6 /* Snapshot.swift in Sources */,
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
+				54E6590B2A4F573200FB43D3 /* SelectedChallengeCardView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Challenge.swift in Sources */,
 				54E659072A4B6EE800FB43D3 /* OnboardingView2.swift in Sources */,
 				B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */,
