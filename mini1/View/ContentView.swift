@@ -371,7 +371,7 @@ struct ContentView: View {
                         }
                         .padding(.top, 24)
                         .sheet(isPresented: $showingAddChallengeView) {
-                            AddChallengeView(challenges: $userData.challenges)
+                            AddChallengeView2(challenges: $userData.challenges)
                         }
                     }
                     Spacer()
