@@ -108,7 +108,7 @@ struct OnboardingView2: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(.white)
+                .background(Color("AppGray03"))
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .strokeBorder(Color("AppPink"), lineWidth: 1))
@@ -126,13 +126,14 @@ struct OnboardingView2: View {
                 .background(isDisabled ? Color("AppGray04") : Color("AppPink"))
                 .cornerRadius(10)
             }
+            .simultaneousGesture(TapGesture().onEnded { userData.challenges.append(selected!)
+                onFinish()
+            })
             .disabled(isDisabled)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 24)
-        .onAppear {
-            onFinish()
-        }
+        
     }
 }
 

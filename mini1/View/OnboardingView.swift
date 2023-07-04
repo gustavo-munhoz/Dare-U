@@ -77,7 +77,7 @@ struct OnboardingView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(.white)
+                .background(Color("AppGray03"))
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .strokeBorder(Color("AppPink"), lineWidth: 1))
