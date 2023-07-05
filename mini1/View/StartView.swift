@@ -15,7 +15,7 @@ struct StartView: View {
             if userData.didShowOnboarding {
                 ContentView(userData: userData)
             } else {
-                OnboardingView(userData: userData)
+                OnboardingView3(userData: userData)
             }
         }
     }

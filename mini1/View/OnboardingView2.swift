@@ -9,7 +9,6 @@ import SwiftUI
 import UIKit
 
 struct OnboardingView2: View {
-    
     @ObservedObject var userData: UserData
     var onFinish: () -> Void
     
@@ -35,18 +34,24 @@ struct OnboardingView2: View {
     var body: some View {
         VStack {
             
-            HStack {
+            HStack() {
                 Image(systemName: "circle.fill")
                     .padding(.bottom, 10)
-                    .padding(.top, 10)
-                    .font(.system(size: 10))
+                    .padding(.top, 24)
+                    .font(.system(size: 8))
                     .foregroundColor(Color("AppGray02"))
                 Image(systemName: "circle.fill")
                     .padding(.bottom, 10)
-                    .padding(.top, 10)
-                    .font(.system(size: 10))
+                    .padding(.top, 24)
+                    .font(.system(size: 8))
+                    .foregroundColor(Color("AppGray02"))
+                Image(systemName: "circle.fill")
+                    .padding(.bottom, 10)
+                    .padding(.top, 24)
+                    .font(.system(size: 8))
                     .foregroundColor(Color("AppBlack"))
             }
+            .frame(maxWidth: .infinity)
             
                 Text("Adicione um desafio")
                     .fontDesign(.monospaced)
@@ -136,6 +141,7 @@ struct OnboardingView2: View {
             .disabled(isDisabled)
         }
         .padding(.horizontal, 24)
+        .navigationBarBackButtonHidden()
         
     }
 }
