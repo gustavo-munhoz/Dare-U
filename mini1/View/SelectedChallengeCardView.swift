@@ -61,6 +61,6 @@ struct SelectedChallengeCardView: View {
 
 struct SelectedChallengeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedChallengeCardView(goal: Challenge(description: "Hidratar o rosto com creme", category: Category.selfcare.displayName, timesCompletedThisWeek: 10), isSelected: true) {}
+        SelectedChallengeCardView(goal: Challenge(description: "Hidratar o rosto com creme", category: Category.selfcare.displayName), isSelected: true) {}
     }
 }

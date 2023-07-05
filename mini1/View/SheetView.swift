@@ -18,12 +18,12 @@ struct SheetView: View {
         }) {
             HStack {
                 Image(systemName: "square.and.arrow.up")
-                Text("Compartilhar")
+                Text("Compartilhe a imagem")
             }
             .frame(maxWidth: .infinity)
             .frame(height: 29)
             .foregroundColor(Color("AppGray03"))
-            .font(.system(.headline))
+            .font(.system(.headline, weight: .semibold))
             .padding(10)
             .background(Color("AppPink"))
             .cornerRadius(10)

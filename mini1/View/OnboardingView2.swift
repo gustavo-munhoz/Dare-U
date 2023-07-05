@@ -20,10 +20,10 @@ struct OnboardingView2: View {
     @State var selected : Challenge?
     
     let suggestedChallenges: [Challenge] = [
-        Challenge(description: "Andar 2km de skate", isComplete: false, category:  Category.sport.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Tomar 1L de água", category:  Category.selfcare.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Assistir um filme", category:  Category.art.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName, timesCompletedThisWeek: 10)
+        Challenge(description: "Andar 2km de skate", isComplete: false, category:  Category.sport.displayName),
+        Challenge(description: "Tomar 1L de água", category:  Category.selfcare.displayName),
+        Challenge(description: "Assistir um filme", category:  Category.art.displayName),
+        Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName)
     ]
     
     

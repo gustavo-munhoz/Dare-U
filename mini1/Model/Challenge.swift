@@ -17,13 +17,16 @@ struct Challenge: Codable, Identifiable, Equatable {
     var lastCompletionDate: Date?
     var imageName: String
     
-    init(id: UUID = UUID(), description: String, isComplete: Bool = false, category: String, timesCompletedThisWeek: Int, lastCompletionDate: Date? = nil) {
+    init(id: UUID = UUID(), description: String, isComplete: Bool = false, category: String) {
         self.id = id
         self.description = description
         self.isComplete = isComplete
         self.category = category
-        self.timesCompletedThisWeek = timesCompletedThisWeek
-        self.lastCompletionDate = lastCompletionDate
+        self.timesCompletedThisWeek = 0
+        self.lastCompletionDate = nil
         self.imageName = "\(self.category.lowercased())\(Int.random(in: 1...3))"
     }
+    
+    
+    
 }

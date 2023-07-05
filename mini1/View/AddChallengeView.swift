@@ -24,10 +24,10 @@ struct AddChallengeView2: View {
     
     // Desafios sugeridos
     let suggestedChallenges: [Challenge] = [
-        Challenge(description: "Andar 2km de skate", isComplete: false, category:  Category.sport.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Tomar 1L de água", category:  Category.selfcare.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Assistir um filme", category:  Category.art.displayName, timesCompletedThisWeek: 10),
-        Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName, timesCompletedThisWeek: 10)
+        Challenge(description: "Andar 2km de skate", isComplete: false, category:  Category.sport.displayName),
+        Challenge(description: "Tomar 1L de água", category:  Category.selfcare.displayName),
+        Challenge(description: "Assistir um filme", category:  Category.art.displayName),
+        Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName)
     ]
     
     var buttonDisable : Bool {
@@ -96,7 +96,7 @@ struct AddChallengeView2: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 16)
                 .padding(.top, 4)
-                .frame(width: .infinity, height: .infinity)
+                .frame(maxWidth: .infinity)
                 .background(Color("AppGray03"))
                 .cornerRadius(10)
                 
@@ -167,8 +167,7 @@ struct AddChallengeView2: View {
             newGoal = Challenge(
                 description: challengeDescription,
                 isComplete: false,
-                category: category.displayName,
-                timesCompletedThisWeek: 0
+                category: category.displayName
             )
         }
         

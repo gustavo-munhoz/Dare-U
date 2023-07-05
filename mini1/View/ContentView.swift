@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var screenshot: UIImage?
     @State private var isSharing = false
     @State private var isEditing = false
+    @State private var isPresentingTutorial = false
     @State private var isPresentingYourDay = false
     @State private var isPresentingPoke = false
     @State private var isPresentingUntilNow = false
@@ -46,7 +47,6 @@ struct ContentView: View {
             }
         }
     }
-    
     
     var header: some View {
         HStack(spacing: 32) {
@@ -83,6 +83,58 @@ struct ContentView: View {
             }
             
             Spacer()
+        }
+    }
+    
+    var tutorial: some View {
+        VStack (alignment: .leading, spacing: 20) {
+            Text("🧩 Tutorial")
+                .font(.system(.caption, weight: .medium))
+                .foregroundColor(Color("AppGray03Constant"))
+            
+            VStack(alignment: .leading) {
+                Text("Primeiros")
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AppYellow"), lineWidth: 1).padding(.horizontal, -2).padding(.vertical, 0.8))
+                
+                HStack {
+                    Text("passos")
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AppYellow"), lineWidth: 1).padding(.horizontal, -2).padding(.vertical, 0.8))
+                    Text("para")
+                }
+                
+                Text("compartilhar")
+                Text("com o seu amigo")
+            }
+            .foregroundColor(Color("AppGray03Constant"))
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Circle()
+                    .fill(Color("AppGray03Constant"))
+                    .frame(width: 40)
+                    .overlay {
+                        Image(systemName: "questionmark")
+                            .foregroundColor(.blue)
+                            .font(.system(.subheadline, weight: .semibold))
+                    }
+                    .padding(.top, 4)
+            }
+        }
+        .padding(16)
+        .frame(width: 157, height: 226)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("AppOrange"), Color("AppOrangeDark")]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing).cornerRadius(10)
+        )
+        .overlay {
+            Image("tutorial")
         }
     }
     
@@ -251,7 +303,7 @@ struct ContentView: View {
     var sharing: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Descubra")
+                Text("Descubra e compartilhe")
                     .font(.system(.title3, weight: .bold))
                 
                 Image(systemName: "arrow.right")
@@ -261,6 +313,10 @@ struct ContentView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
+                    Button(action: { isPresentingTutorial = true}) {
+                        tutorial
+                    }
+                    
                     Button(action: {isPresentingYourDay = true}) {
                         yourDay
                     }
@@ -278,6 +334,14 @@ struct ContentView: View {
                 }
             }
         }
+        .sheet(isPresented: $isPresentingTutorial, content: {
+            StoriesView(
+                imageName: "imagem_tutorial",
+                isPresented: $isPresentingTutorial,
+                isSharing: $isSharing,
+                userData: userData)
+        })
+        
         .sheet(isPresented: $isPresentingYourDay) {
             StoriesView(
                 imageName: "imagem_seu_dia",
@@ -436,8 +500,7 @@ struct AddChallengeView: View {
                         let newGoal = Challenge(
                             description: challengeDescription,
                             isComplete: false,
-                            category: category.displayName,
-                            timesCompletedThisWeek: 0
+                            category: category.displayName
                         )
                         challenges.append(newGoal)
                         dismiss()
@@ -499,7 +562,11 @@ struct StoriesView: View {
         }
         .padding(.horizontal, 24)
         .onAppear {
-            level = imageName != "imagem_domingo" ? calculateCompletionLevel() : 1
+            if imageName == "imagem_domingo" || imageName == "imagem_tutorial" {
+                level = 1
+            } else {
+                level = calculateCompletionLevel()
+            }
         }
     }
     
@@ -509,27 +576,37 @@ struct StoriesView: View {
         // Pegar o início da semana (domingo)
         let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))
         
+        print("Start of week: \(startOfWeek!)")
+        
         // Para cada desafio, calcular quantas vezes ele poderia ter sido completado
         let totalPossibleCompletions = userData.challenges.reduce(0) { result, challenge in
             let creationDate = challenge.dateOfCreation
             
-            // Se o desafio foi criado antes do início desta semana, ele poderia ter sido completado todos os dias desde o início da semana
-            if creationDate <= startOfWeek! {
-                let daysSinceStartOfWeek = calendar.dateComponents([.day], from: startOfWeek!, to: Date()).day ?? 0
-                return result + (daysSinceStartOfWeek + 1)
+            // Se o desafio foi criado antes do início desta semana, ignore-o
+            if creationDate < startOfWeek! {
+                return result
             }
+            
             // Se o desafio foi criado durante a semana, ele só poderia ter sido concluído nos dias desde a sua criação
             else {
                 let daysSinceCreation = calendar.dateComponents([.day], from: creationDate, to: Date()).day ?? 0
                 return result + (daysSinceCreation + 1) // adicionando 1 aqui para considerar o dia da criação
             }
         }
+
+
+        
+        print("Total possible completions: \(totalPossibleCompletions)")
         
         // Para cada desafio, calcular quantas vezes ele foi completado
         let totalCompletions = userData.challenges.reduce(0) { $0 + $1.timesCompletedThisWeek }
         
+        print("Total completions: \(totalCompletions)")
+        
         // Calcular a porcentagem
         let completionPercentage = totalPossibleCompletions == 0 ? 0 : Double(totalCompletions) / Double(totalPossibleCompletions)
+        
+        print("Completion percentage: \(completionPercentage)")
         
         if completionPercentage < 0.33 {
             return 1
@@ -539,6 +616,7 @@ struct StoriesView: View {
             return 3
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
