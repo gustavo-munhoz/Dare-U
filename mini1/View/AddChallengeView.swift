@@ -10,8 +10,8 @@ import SwiftUI
 struct AddChallengeView2: View {
     
     enum FocusedField {
-            case descri
-        }
+        case descri
+    }
     
     @Environment(\.dismiss) var dismiss
     @Binding var challenges: [Challenge]
@@ -22,13 +22,8 @@ struct AddChallengeView2: View {
     
     @FocusState private var focusedField: FocusedField?
     
-    // Desafios sugeridos
-    let suggestedChallenges: [Challenge] = [
-        Challenge(description: "Andar 2km de skate", isComplete: false, category:  Category.sport.displayName),
-        Challenge(description: "Tomar 1L de água", category:  Category.selfcare.displayName),
-        Challenge(description: "Assistir um filme", category:  Category.art.displayName),
-        Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName)
-    ]
+    @State private var suggestedChallenges: [Challenge] = []
+    @State private var isLoading = true
     
     var buttonDisable : Bool {
         if focusedField == .descri {
@@ -57,7 +52,6 @@ struct AddChallengeView2: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 8)
-//                            .frame(width: .infinity, height: .infinity)
                             .background(Color("AppPink"))
                             .cornerRadius(10)
                         
@@ -73,13 +67,15 @@ struct AddChallengeView2: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 8)
-//                            .frame(width: .infinity, height: .infinity)
                             .background(Color("AppPink"))
                             .cornerRadius(10)
                         
                         Picker("Category", selection: $category) {
                             ForEach(Category.allCases, id: \.self) { category in
-                                Text(category.displayName).tag(category)
+                                Text(
+                                    category.displayName == "culinaria" ?
+                                    "Culinária" :
+                                    category.displayName.capitalized).tag(category)
                             }
                         }
                     }
@@ -107,28 +103,46 @@ struct AddChallengeView2: View {
                 Text("Desafios sugeridos")
                     .bold()
                 
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        ForEach(suggestedChallenges, id: \.description) { challenge in
-                            Button(action: {
-                                if selected == challenge {
-                                    selected = nil
-                                    focusedField = .descri
-                                } else {
-                                    selected = challenge
-                                    focusedField = nil
-                                }
-                            }) {
-                                VStack(alignment: .leading) {
-                                    SelectedChallengeCardView(goal: challenge, isSelected: selected != challenge, deleteAction: {})
+                
+                Group {
+                    if isLoading {
+                        ProgressView()
+                            .scaleEffect(2.0, anchor: .center)
+                            .padding(.top, 50)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Spacer()
+                    } else {
+                        ScrollView(showsIndicators: false) {
+                            VStack {
+                                ForEach(suggestedChallenges, id: \.description) { challenge in
                                     
+                                    Button(action: {
+                                        if selected == challenge {
+                                            selected = nil
+                                            focusedField = .descri
+                                        } else {
+                                            selected = challenge
+                                            focusedField = nil
+                                        }
+                                    }) {
+                                        
+                                        VStack(alignment: .leading) {
+                                            SelectedChallengeCardView(goal: challenge, isSelected: selected != challenge, deleteAction: {})
+                                        }
+                                        .padding(.vertical, 4)
+                                    }
+                                    .padding(.horizontal, 24)
                                 }
-                                .padding(.vertical, 4)
                             }
-                            .padding(.horizontal, 24)
+                            .padding(.vertical, 8)
                         }
                     }
-                    .padding(.vertical, 8)
+                }
+                .onAppear {
+                    Challenge.fetchChallenges(previousChallenges: suggestedChallenges) { fetchedChallenges in
+                        self.suggestedChallenges = fetchedChallenges
+                        isLoading = false
+                    }
                 }
                 
                 .clipped()

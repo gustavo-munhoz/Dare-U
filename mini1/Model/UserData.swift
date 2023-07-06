@@ -36,8 +36,8 @@ class UserData: ObservableObject {
     }
     
     init() {
-        self.player1Name = UserDefaults.standard.object(forKey: "player1Name") as? String ?? "a"
-        self.player2Name = UserDefaults.standard.object(forKey: "player2Name") as? String ?? "b"
+        self.player1Name = UserDefaults.standard.object(forKey: "player1Name") as? String ?? ""
+        self.player2Name = UserDefaults.standard.object(forKey: "player2Name") as? String ?? ""
         self.didShowOnboarding = UserDefaults.standard.bool(forKey: "DidShowOnboarding")
         
         if let data = UserDefaults.standard.data(forKey: "challenges") {

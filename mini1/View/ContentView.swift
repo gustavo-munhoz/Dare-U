@@ -87,7 +87,7 @@ struct ContentView: View {
     }
     
     var tutorial: some View {
-        VStack (alignment: .leading, spacing: 20) {
+        VStack (alignment: .leading, spacing: 6) {
             Text("🧩 Tutorial")
                 .font(.system(.caption, weight: .medium))
                 .foregroundColor(Color("AppGray03Constant"))
@@ -345,7 +345,7 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingYourDay) {
             StoriesView(
                 imageName: "imagem_seu_dia",
-                isPresented:$isPresentingYourDay,
+                isPresented: $isPresentingYourDay,
                 isSharing: $isSharing,
                 userData: userData
             )
@@ -353,7 +353,7 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingPoke) {
             StoriesView(
                 imageName: "imagem_cutuque",
-                isPresented:$isPresentingYourDay,
+                isPresented: $isPresentingPoke,
                 isSharing: $isSharing,
                 userData: userData
             )
@@ -361,7 +361,7 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingUntilNow) {
             StoriesView(
                 imageName: "imagem_ate_agora",
-                isPresented:$isPresentingYourDay,
+                isPresented: $isPresentingUntilNow,
                 isSharing: $isSharing,
                 userData: userData
             )
@@ -409,7 +409,7 @@ struct ContentView: View {
                             if !userData.challenges.isEmpty {
                                 Button(action: {
                                     withAnimation { isEditing.toggle() } }) {
-                                    Text(isEditing ? "Done" : "Edit")
+                                    Text(isEditing ? "OK" : "Editar")
                                         .fontWeight(isEditing ? .bold : .regular)
                                 }
                             }

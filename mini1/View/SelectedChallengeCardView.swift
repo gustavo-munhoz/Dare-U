@@ -31,12 +31,14 @@ struct SelectedChallengeCardView: View {
                     
                     VStack(alignment: .leading) {
                         Text(goal.description)
+                            .multilineTextAlignment(.leading)
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(isSelected ? Color("AppGray02") : Color("AppBlack"))
-                        Text(goal.category)
+                        Text(goal.category == "culinaria" ? "Culinária" : goal.category.capitalized)
                             .font(.footnote)
                             .foregroundColor(isSelected ? Color("AppGray02") : Color("AppBlack"))
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Spacer()
                 }

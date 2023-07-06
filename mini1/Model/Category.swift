@@ -8,13 +8,13 @@
 import Foundation
 
 enum Category: String, CaseIterable {
-    case selfcare = "Autocuidado"
-    case sport = "Esporte"
-    case skill = "Habilidade"
-    case cooking = "Culinária"
-    case mind = "Mente"
-    case tech = "Tecnologia"
-    case art = "Arte"
+    case selfcare = "autocuidado"
+    case sport = "esporte"
+    case skill = "habilidade"
+    case cooking = "culinaria"
+    case mind = "mente"
+    case tech = "tecnologia"
+    case art = "arte"
     
     var displayName: String {
         return self.rawValue
