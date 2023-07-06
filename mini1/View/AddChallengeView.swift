@@ -8,29 +8,18 @@
 import SwiftUI
 
 struct AddChallengeView2: View {
-    
-    enum FocusedField {
-        case descri
-    }
-    
     @Environment(\.dismiss) var dismiss
     @Binding var challenges: [Challenge]
     
     @State private var challengeDescription = ""
-    @State private var category = Category.art
+    @State private var category = Category.selfcare
     @State var selected : Challenge?
-    
-    @FocusState private var focusedField: FocusedField?
     
     @State private var suggestedChallenges: [Challenge] = []
     @State private var isLoading = true
     
     var buttonDisable : Bool {
-        if focusedField == .descri {
-            return challengeDescription.isEmpty
-        } else {
-            return selected == nil
-        }
+        return selected == nil && challengeDescription.isEmpty
     }
     
     var body: some View {
@@ -46,7 +35,6 @@ struct AddChallengeView2: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        
                         Text("Título")
                             .bold()
                             .foregroundColor(.white)
@@ -58,7 +46,6 @@ struct AddChallengeView2: View {
                         TextField("Descrição do desafio", text: $challengeDescription)
                             .font(.system(size: 17))
                             .padding(.leading, 16)
-                            .focused($focusedField, equals: .descri)
                     }
                     
                     HStack {
@@ -81,13 +68,13 @@ struct AddChallengeView2: View {
                     }
                 }
                 
-                .onChange(of: focusedField, perform: { newValue in
-                    if newValue == .descri {
-                        withAnimation {
-                            selected = nil
-                        }
-                    }
-                })
+//                .onChange(of: focusedField, perform: { newValue in
+//                    if newValue == .descri {
+//                        withAnimation {
+//                            selected = nil
+//                        }
+//                    }
+//                })
                 
                 .padding(.horizontal, 16)
                 .padding(.vertical, 16)
@@ -119,10 +106,8 @@ struct AddChallengeView2: View {
                                     Button(action: {
                                         if selected == challenge {
                                             selected = nil
-                                            focusedField = .descri
                                         } else {
                                             selected = challenge
-                                            focusedField = nil
                                         }
                                     }) {
                                         
@@ -166,9 +151,6 @@ struct AddChallengeView2: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 24)
             .padding(.top, 48)
-        }
-        .onAppear {
-                    focusedField = .descri
         }
     }
     
