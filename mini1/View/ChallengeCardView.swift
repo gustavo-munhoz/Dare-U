@@ -33,7 +33,7 @@ struct ChallengeCardView: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color("AppBlack") : Color("AppGray03"))
                             .strikethrough(goal.isComplete, color: darkFonts.contains(goal.category) ? Color("AppBlack") : Color("AppGray03"))
-                        Text(goal.category)
+                        Text(goal.category == "culinaria" ? "Culinária" : goal.category.capitalized)
                             .font(.footnote)
                             .foregroundColor(!goal.isComplete || darkFonts.contains(goal.category) ? Color(uiColor: .darkGray) : Color("AppGray03"))
                     }

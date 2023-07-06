@@ -22,6 +22,9 @@
 		B3282DFD2A4624950098B0E6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3282DFC2A4624950098B0E6 /* NotificationManager.swift */; };
 		B377F0CD2A50EA25007DD97D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0CC2A50EA25007DD97D /* StartView.swift */; };
 		B377F0D12A51291A007DD97D /* ThreeCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0D02A51291A007DD97D /* ThreeCornerShape.swift */; };
+		B377F0D32A55F413007DD97D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0D22A55F413007DD97D /* Secrets.swift */; };
+		B377F0D52A55F4F0007DD97D /* ChatGPTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0D42A55F4F0007DD97D /* ChatGPTModel.swift */; };
+		B377F0D92A55F72F007DD97D /* ChatGptResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F0D72A55F72F007DD97D /* ChatGptResponseModel.swift */; };
 		B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38086122A4A0BA800EBEC65 /* UserData.swift */; };
 		B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */ = {isa = PBXBuildFile; fileRef = B38086292A4A104300EBEC65 /* sf-compact.otf */; };
 		B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */; };
@@ -45,6 +48,9 @@
 		B3282DFC2A4624950098B0E6 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		B377F0CC2A50EA25007DD97D /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		B377F0D02A51291A007DD97D /* ThreeCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCornerShape.swift; sourceTree = "<group>"; };
+		B377F0D22A55F413007DD97D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		B377F0D42A55F4F0007DD97D /* ChatGPTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTModel.swift; sourceTree = "<group>"; };
+		B377F0D72A55F72F007DD97D /* ChatGptResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatGptResponseModel.swift; sourceTree = "<group>"; };
 		B38086122A4A0BA800EBEC65 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B38086292A4A104300EBEC65 /* sf-compact.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-compact.otf"; sourceTree = "<group>"; };
 		B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCardView.swift; sourceTree = "<group>"; };
@@ -128,9 +134,11 @@
 		B3282DEE2A43746D0098B0E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B377F0D72A55F72F007DD97D /* ChatGptResponseModel.swift */,
 				B3282DF02A43749B0098B0E6 /* Challenge.swift */,
 				B3FD622F2A4A03A9003A3057 /* Category.swift */,
 				B38086122A4A0BA800EBEC65 /* UserData.swift */,
+				B377F0D42A55F4F0007DD97D /* ChatGPTModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 			children = (
 				B3282DFA2A44CB430098B0E6 /* SharingViewController.swift */,
 				B3282DFC2A4624950098B0E6 /* NotificationManager.swift */,
+				B377F0D22A55F413007DD97D /* Secrets.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -215,11 +224,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B377F0D92A55F72F007DD97D /* ChatGptResponseModel.swift in Sources */,
 				5472E0F12A548C9100FA01FC /* AddChallengeView.swift in Sources */,
 				B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */,
 				B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */,
 				B3282DF72A44C8110098B0E6 /* Snapshot.swift in Sources */,
 				B3282DF92A44CB2F0098B0E6 /* SheetView.swift in Sources */,
+				B377F0D32A55F413007DD97D /* Secrets.swift in Sources */,
 				54E6590B2A4F573200FB43D3 /* SelectedChallengeCardView.swift in Sources */,
 				B3282DF12A43749B0098B0E6 /* Challenge.swift in Sources */,
 				B377F0CD2A50EA25007DD97D /* StartView.swift in Sources */,
@@ -231,6 +242,7 @@
 				B3282DFB2A44CB430098B0E6 /* SharingViewController.swift in Sources */,
 				B38086132A4A0BA800EBEC65 /* UserData.swift in Sources */,
 				543A91BA2A4619F300346726 /* OnboardingView.swift in Sources */,
+				B377F0D52A55F4F0007DD97D /* ChatGPTModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

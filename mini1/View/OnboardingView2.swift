@@ -26,8 +26,6 @@ struct OnboardingView2: View {
         Challenge(description: "Tomar café da manhã", category:  Category.cooking.displayName)
     ]
     
-    
-    
     var isDisabled: Bool {
         selected == nil
     }
