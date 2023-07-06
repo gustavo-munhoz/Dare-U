@@ -8,16 +8,11 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @ObservedObject var userData: UserData
+    @ObservedObject var userData = UserData()
     
     var body: some View {
         VStack {
             HStack() {
-                Image(systemName: "circle.fill")
-                    .padding(.bottom, 10)
-                    .padding(.top, 24)
-                    .font(.system(size: 8))
-                    .foregroundColor(Color("AppGray02"))
                 Image(systemName: "circle.fill")
                     .padding(.bottom, 10)
                     .padding(.top, 24)
@@ -28,14 +23,19 @@ struct OnboardingView: View {
                     .padding(.top, 24)
                     .font(.system(size: 8))
                     .foregroundColor(Color("AppGray02"))
+                Image(systemName: "circle.fill")
+                    .padding(.bottom, 10)
+                    .padding(.top, 24)
+                    .font(.system(size: 8))
+                    .foregroundColor(Color("AppGray02"))
             }
             .frame(maxWidth: .infinity)
             
-            Image("LogoOnboarding3")
+            Image("Logo")
                 .padding(.top, 10)
             
             
-            Text("Comece aqui")
+            Text("Bem-vindo")
                 .fontDesign(.monospaced)
                 .font(.system(size: 34))
                 .fontWeight(.bold)
@@ -45,7 +45,7 @@ struct OnboardingView: View {
             Text("Compartilhe desafios com os seus amigos!")
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 16)
+                .padding(.bottom, 14)
             
             Text("Qual o seu nome?")
                 .font(.system(.footnote, weight: .regular))
@@ -67,9 +67,9 @@ struct OnboardingView: View {
             TextField("Desafiante", text: $userData.player2Name)
                 .font(.system(size: 17))
                 .frame(height: 44)
-                .padding(.leading, 16)
+                .padding(.leading, 14)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
-                .padding(.bottom, 94)
+                .padding(.bottom, 46)
             
             NavigationLink(destination:
                 OnboardingView2(userData: userData) {
@@ -108,11 +108,10 @@ struct OnboardingView: View {
         .padding(.horizontal, 24)
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color("AppGray03"))
-        .navigationBarBackButtonHidden()
     }
 }
 
-struct OnboardingView_Previews: PreviewProvider {
+struct OnboardingView1-5_reviews: PreviewProvider {
     static var previews: some View {
         OnboardingView(userData: UserData())
     }

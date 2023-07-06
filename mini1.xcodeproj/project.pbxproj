@@ -26,6 +26,7 @@
 		B38086362A4A104300EBEC65 /* sf-compact.otf in Resources */ = {isa = PBXBuildFile; fileRef = B38086292A4A104300EBEC65 /* sf-compact.otf */; };
 		B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */; };
 		B3FD62302A4A03A9003A3057 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD622F2A4A03A9003A3057 /* Category.swift */; };
+		C05005862A54A7AA00A23CFB /* OnboardingView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05005852A54A7AA00A23CFB /* OnboardingView3.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		B38086292A4A104300EBEC65 /* sf-compact.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-compact.otf"; sourceTree = "<group>"; };
 		B380863B2A4B5DD000EBEC65 /* ChallengeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCardView.swift; sourceTree = "<group>"; };
 		B3FD622F2A4A03A9003A3057 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		C05005852A54A7AA00A23CFB /* OnboardingView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView3.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				B3282DE12A4373BC0098B0E6 /* ContentView.swift */,
 				5472E0F02A548C9100FA01FC /* AddChallengeView.swift */,
 				543A91B92A4619F300346726 /* OnboardingView.swift */,
+				C05005852A54A7AA00A23CFB /* OnboardingView3.swift */,
 				54E659062A4B6EE800FB43D3 /* OnboardingView2.swift */,
 				B3282DF62A44C8110098B0E6 /* Snapshot.swift */,
 				B3282DF82A44CB2F0098B0E6 /* SheetView.swift */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C05005862A54A7AA00A23CFB /* OnboardingView3.swift in Sources */,
 				5472E0F12A548C9100FA01FC /* AddChallengeView.swift in Sources */,
 				B3282DE22A4373BC0098B0E6 /* ContentView.swift in Sources */,
 				B380863C2A4B5DD000EBEC65 /* ChallengeCardView.swift in Sources */,
