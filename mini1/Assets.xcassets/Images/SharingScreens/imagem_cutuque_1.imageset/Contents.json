@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "imagem_cutuque.png",
+      "filename" : "imagem_cutuque_1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "imagem_cutuque@2x.png",
+      "filename" : "imagem_cutuque_1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "imagem_cutuque@3x.png",
+      "filename" : "imagem_cutuque_1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

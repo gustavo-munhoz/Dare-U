@@ -120,6 +120,9 @@ struct OnboardingView2: View {
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .strokeBorder(Color("AppPink"), lineWidth: 1))
             }
+            .simultaneousGesture(TapGesture().onEnded {
+                onFinish()
+            })
             
             NavigationLink(destination: ContentView(userData: userData)) {
                 HStack {

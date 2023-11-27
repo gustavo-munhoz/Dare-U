@@ -12,11 +12,13 @@ struct AddChallengeView2: View {
     @Binding var challenges: [Challenge]
     
     @State private var challengeDescription = ""
-    @State private var category = Category.selfcare
+    @State private(set) var category = Category.selfcare
     @State var selected : Challenge?
     
     @State private var suggestedChallenges: [Challenge] = []
     @State private var isLoading = true
+    
+    var darkFonts: [String] = ["mente", "habilidade", "tecnologia"]
     
     var buttonDisable : Bool {
         return selected == nil && challengeDescription.isEmpty
@@ -37,10 +39,10 @@ struct AddChallengeView2: View {
                     HStack {
                         Text("Título")
                             .bold()
-                            .foregroundColor(.white)
+                            .foregroundColor(darkFonts.contains(category.displayName) ? Color("AppBlackConstant") : Color("AppGray03Constant"))
                             .padding(.vertical, 4)
                             .padding(.horizontal, 8)
-                            .background(Color("AppPink"))
+                            .background(Color(category.displayName))
                             .cornerRadius(10)
                         
                         TextField("Descrição do desafio", text: $challengeDescription)
@@ -51,10 +53,10 @@ struct AddChallengeView2: View {
                     HStack {
                         Text("Categoria")
                             .bold()
-                            .foregroundColor(.white)
+                            .foregroundColor(darkFonts.contains(category.displayName) ? Color("AppBlackConstant") : Color("AppGray03Constant"))
                             .padding(.vertical, 4)
                             .padding(.horizontal, 8)
-                            .background(Color("AppPink"))
+                            .background(Color(category.displayName))
                             .cornerRadius(10)
                         
                         Picker("Category", selection: $category) {
@@ -85,64 +87,16 @@ struct AddChallengeView2: View {
                 
                 Spacer(minLength: 24)
                 
-                // Seção para desafios sugeridos
-                
-                Text("Desafios sugeridos")
-                    .bold()
-                
-                
-                Group {
-                    if isLoading {
-                        ProgressView()
-                            .scaleEffect(2.0, anchor: .center)
-                            .padding(.top, 50)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Spacer()
-                    } else {
-                        ScrollView(showsIndicators: false) {
-                            VStack {
-                                ForEach(suggestedChallenges, id: \.description) { challenge in
-                                    
-                                    Button(action: {
-                                        if selected == challenge {
-                                            selected = nil
-                                        } else {
-                                            selected = challenge
-                                        }
-                                    }) {
-                                        
-                                        VStack(alignment: .leading) {
-                                            SelectedChallengeCardView(goal: challenge, isSelected: selected != challenge, deleteAction: {})
-                                        }
-                                        .padding(.vertical, 4)
-                                    }
-                                    .padding(.horizontal, 24)
-                                }
-                            }
-                            .padding(.vertical, 8)
-                        }
-                    }
-                }
-                .onAppear {
-                    Challenge.fetchChallenges(previousChallenges: suggestedChallenges) { fetchedChallenges in
-                        self.suggestedChallenges = fetchedChallenges
-                        isLoading = false
-                    }
-                }
-                
-                .clipped()
-                .padding(.horizontal, -24)
-                
                 Button(action: addChallenge) {
                     HStack {
                         Text("Adicionar desafio")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.callout)
                             .bold()
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
-                    .background(buttonDisable ? Color("AppGray04") : Color("AppPink"))
+                    .background(buttonDisable ? Color("AppGray04") : Color(category.displayName))
                     .cornerRadius(10)
                 }
                 .disabled(buttonDisable)

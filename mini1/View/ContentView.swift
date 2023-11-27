@@ -21,6 +21,9 @@ struct ContentView: View {
     @State private var isPresentingUntilNow = false
     @State private var isPresentingSundayStory = false
     
+    @State private var isEditingPlayer1 = false
+    @State private var isEditingPlayer2 = false
+    
     @ObservedObject var userData: UserData
     
     private func challengeButton(index: Int) -> some View {
@@ -73,13 +76,25 @@ struct ContentView: View {
 
 
             VStack(alignment: .leading) {
-                Text(userData.player1Name)
-                    .font(.system(size: 34))
-                    .fontDesign(.monospaced)
-                    .fontWeight(.bold)
-                
-                Text("vs \(userData.player2Name)")
-
+                HStack() {
+                    TextField("Você...", text: $userData.player1Name)
+                        .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
+                        .font(.system(size: 34))
+                        .fontDesign(.monospaced)
+                        .fontWeight(.bold)
+                        .minimumScaleFactor(0.5)
+                        .truncationMode(.tail)
+                        
+                    
+                    Spacer()
+                }
+                    
+                HStack {
+                    Text("vs")
+                    TextField("Oponente...", text: $userData.player2Name, onCommit: {
+                        self.isEditingPlayer2 = false
+                    })
+                }
             }
             
             Spacer()
@@ -436,6 +451,7 @@ struct ContentView: View {
                         .padding(.top, 24)
                         .sheet(isPresented: $showingAddChallengeView) {
                             AddChallengeView2(challenges: $userData.challenges)
+                                .presentationDetents([.medium])
                         }
                     }
                     Spacer()
