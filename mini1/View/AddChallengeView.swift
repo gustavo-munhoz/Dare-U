@@ -34,6 +34,7 @@ struct AddChallengeView2: View {
                     .font(.system(size: 34))
                     .fontDesign(.monospaced)
                     .fontWeight(.bold)
+                    .minimumScaleFactor(0.5)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -49,6 +50,7 @@ struct AddChallengeView2: View {
                             .font(.system(size: 17))
                             .padding(.leading, 16)
                     }
+                    .minimumScaleFactor(0.5)
                     
                     HStack {
                         Text("Categoria")
@@ -68,6 +70,7 @@ struct AddChallengeView2: View {
                             }
                         }
                     }
+                    .minimumScaleFactor(0.5)
                 }
                 
 //                .onChange(of: focusedField, perform: { newValue in

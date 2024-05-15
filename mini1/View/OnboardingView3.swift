@@ -32,8 +32,13 @@ struct OnboardingView3: View {
             .frame(maxWidth: .infinity)
             
             Image("Logo")
+                .resizable()
+                .scaledToFit()
+                .frame(minHeight: 200)
                 .padding(.top, 10)
-            
+                
+            Spacer()
+                .frame(minHeight: 20)
             
             Text("Bem-vindo")
                 .fontDesign(.monospaced)
@@ -42,10 +47,6 @@ struct OnboardingView3: View {
                 .foregroundColor(Color("AppBlack"))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-//            Text("Compartilhe desafios com os seus amigos!")
-//                .fixedSize(horizontal: false, vertical: true)
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .padding(.bottom, 14)
             HStack{
                 
                 Circle()
@@ -74,6 +75,7 @@ struct OnboardingView3: View {
                     }
                 }
             }
+            .minimumScaleFactor(0.5)
             
             HStack{
                 
@@ -107,6 +109,7 @@ struct OnboardingView3: View {
                     .foregroundColor(Color("AppBlack"))
                 }
             }
+            .minimumScaleFactor(0.5)
             
             HStack{
                 
@@ -136,52 +139,13 @@ struct OnboardingView3: View {
                     }
                 }
             }
+            .minimumScaleFactor(0.5)
             
-//            TextField("Nome", text: $userData.player1Name)
-//                .font(.system(size: 17))
-//                .frame(height: 44)
-//                .padding(.leading, 16)
-//                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
-//                .padding(.bottom, 10)
-//
-//            Text("Quem você vai desafiar?")
-//                .font(.system(.footnote, weight: .regular))
-//                .foregroundColor(Color("AppGray02"))
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//
-//            TextField("Desafiante", text: $userData.player2Name)
-//                .font(.system(size: 17))
-//                .frame(height: 44)
-//                .padding(.leading, 14)
-//                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
-//                .padding(.bottom, 46)
-            
-            HStack {
-                Rectangle()
-                    .frame(height: 60)
-                    .foregroundColor(.clear)
-//                    .padding(.bottom, 126)
-            }
+            Spacer()
+                .frame(minHeight: 20)
             
             NavigationLink(destination:
                 OnboardingView(userData: userData)) {
-//                HStack {
-//                    Text("pular")
-//                        .foregroundColor(Color("AppBlack"))
-//                        .font(.callout)
-//                }
-//                .frame(maxWidth: .infinity)
-//                .frame(height: 50)
-//                .background(Color("AppGray03"))
-//                .cornerRadius(10)
-//                .overlay(RoundedRectangle(cornerRadius: 10)
-//                    .strokeBorder(Color("AppPink"), lineWidth: 1))
-//                .padding(.bottom, 2)
-//            }
-//
-//            NavigationLink(destination: OnboardingView2(userData: userData) {
-//                userData.didShowOnboarding = true
-//            }) {
                 HStack {
                     Text("próximo")
                         .foregroundColor(.white)
@@ -195,7 +159,7 @@ struct OnboardingView3: View {
             }
             
         }
-        .padding(.horizontal, 24)
+        .padding([.horizontal, .bottom], 24)
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color("AppGray03"))
     }

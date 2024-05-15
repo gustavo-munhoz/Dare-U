@@ -460,7 +460,7 @@ struct ContentView: View {
                     setChangeDaySubscription()
                 }
                 
-                .padding(.horizontal, 24)
+                .padding(.all, 24)
             }
             .navigationBarBackButtonHidden()
         }

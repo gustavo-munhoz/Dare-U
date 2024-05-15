@@ -32,6 +32,9 @@ struct OnboardingView: View {
             .frame(maxWidth: .infinity)
             
             Image("LogoOnboarding3")
+                .resizable()
+                .frame(idealWidth: UIScreen.main.bounds.width, minHeight: 160)
+                .aspectRatio(contentMode: .fit)
                 .padding(.top, 10)
             
             
@@ -69,7 +72,9 @@ struct OnboardingView: View {
                 .frame(height: 44)
                 .padding(.leading, 16)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("AppGray02")))
-                .padding(.bottom, 94)
+            
+            Spacer()
+                .frame(maxHeight: .infinity)
             
             NavigationLink(destination:
                 OnboardingView2(userData: userData) {
@@ -105,8 +110,8 @@ struct OnboardingView: View {
             }
             
         }
-        .padding(.horizontal, 24)
-        .frame(maxHeight: .infinity, alignment: .top)
+        .padding([.horizontal, .bottom], 32)
+        .frame(height: UIScreen.main.bounds.height, alignment: .top)
         .background(Color("AppGray03"))
         .navigationBarBackButtonHidden()
     }
